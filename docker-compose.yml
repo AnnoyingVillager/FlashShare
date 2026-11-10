@@ -1,0 +1,52 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        VERSION: local
+    image: flashshare:local
+    restart: unless-stopped
+    environment:
+      FLASHSHARE_DATA_DIR: /data
+      FLASHSHARE_LISTEN_ADDR: :8080
+      FLASHSHARE_PUBLIC_BASE_URL: ${FLASHSHARE_PUBLIC_BASE_URL:-}
+      FLASHSHARE_MASTER_KEY: ${FLASHSHARE_MASTER_KEY:-}
+      FLASHSHARE_COOKIE_SECURE: ${FLASHSHARE_COOKIE_SECURE:-true}
+      FLASHSHARE_TRUST_PROXY: ${FLASHSHARE_TRUST_PROXY:-true}
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - flashshare-data:/data
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
+  caddy:
+    image: caddy:2.10-alpine
+    restart: unless-stopped
+    profiles: ["caddy"]
+    depends_on:
+      app:
+        condition: service_healthy
+    environment:
+      FLASHSHARE_DOMAIN: ${FLASHSHARE_DOMAIN:-share.example.com}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  flashshare-data:
+  caddy-data:
+  caddy-config:
+

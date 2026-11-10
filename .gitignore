@@ -1,0 +1,16 @@
+.tools/
+.cache/
+.npm-cache/
+.runtime-data/
+*.exe
+*.log
+.env
+data/
+web/node_modules/
+web/dist/*
+!web/dist/.gitkeep
+*.tsbuildinfo
+web/vite.config.js
+web/vite.config.d.ts
+coverage.out
+
