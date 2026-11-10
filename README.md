@@ -88,6 +88,19 @@ Turnstile 用于降低自动化领取和脚本滥用，不能可靠识别“同�
 docker compose --profile caddy up -d --build
 ```
 
+## GitHub Actions 镜像
+
+仓库包含 `.github/workflows/docker.yml`。Pull Request 会构建 `linux/amd64` 镜像用于验证；推送到 `main`、创建 `v*` 标签或手动运行工作流时，会构建并推送 `linux/amd64`、`linux/arm64` 多架构镜像到 GitHub Container Registry。
+
+`main` 分支使用 `edge` 和 `sha-*` 标签，版本标签同时生成语义化版本和 `latest` 标签：
+
+```bash
+docker pull ghcr.io/annoyingvillager/flashshare:edge
+docker pull ghcr.io/annoyingvillager/flashshare:latest
+```
+
+工作流使用仓库内置的 `GITHUB_TOKEN` 和 `packages: write` 权限，不需要额外配置个人 Token。首次推送后，如果 GHCR 包仍为私有，可在 GitHub 包的 Package settings 中调整可见性。
+
 ## 环境变量
 
 | 变量 | 默认值 | 说明 |
