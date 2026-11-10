@@ -43,6 +43,7 @@ openssl rand -hex 32
 关键配置：
 
 ```dotenv
+FLASHSHARE_IMAGE=ghcr.io/annoyingvillager/flashshare:edge
 FLASHSHARE_DOMAIN=share.example.com
 FLASHSHARE_PUBLIC_BASE_URL=https://share.example.com
 FLASHSHARE_MASTER_KEY=这里填写64位十六进制密钥
@@ -50,19 +51,19 @@ FLASHSHARE_COOKIE_SECURE=true
 FLASHSHARE_TRUST_PROXY=true
 ```
 
-使用内置 Caddy 自动申请证书并启动：
+一键拉取 Actions 构建的镜像，并同时启动 FlashShare 与内置 Caddy：
 
 ```bash
-docker compose --profile caddy up -d --build
+docker compose up -d
 ```
 
-如果 VPS 已有 Nginx、Traefik 或其它反向代理，只启动应用：
+Caddy 会自动申请和续期 HTTPS 证书。如果 VPS 已有 Nginx、Traefik 或其它反向代理，只启动应用：
 
 ```bash
-docker compose up -d --build
+docker compose up -d app
 ```
 
-默认仅映射 `127.0.0.1:8080`，应由同机反向代理提供 HTTPS。首次访问站点时创建首位管理员，之后在用户管理页手动创建普通用户。
+应用默认仅映射 `127.0.0.1:8080`，可由同机反向代理访问，不会直接暴露到公网。首次访问站点时创建首位管理员，之后在用户管理页手动创建普通用户。
 
 ### Cloudflare Turnstile
 
@@ -85,12 +86,13 @@ Turnstile 用于降低自动化领取和脚本滥用，不能可靠识别“同�
 更新：
 
 ```bash
-docker compose --profile caddy up -d --build
+docker compose pull
+docker compose up -d
 ```
 
 ## GitHub Actions 镜像
 
-仓库包含 `.github/workflows/docker.yml`。Pull Request 会构建 `linux/amd64` 镜像用于验证；推送到 `main`、创建 `v*` 标签或手动运行工作流时，会构建并推送 `linux/amd64`、`linux/arm64` 多架构镜像到 GitHub Container Registry。
+仓库包含 `.github/workflows/docker.yml`。工作流会校验 `docker-compose.yml`；Pull Request 会构建 `linux/amd64` 镜像用于验证，推送到 `main`、创建 `v*` 标签或手动运行工作流时，会构建并推送 `linux/amd64`、`linux/arm64` 多架构镜像到 GitHub Container Registry。
 
 `main` 分支使用 `edge` 和 `sha-*` 标签，版本标签同时生成语义化版本和 `latest` 标签：
 
@@ -100,6 +102,8 @@ docker pull ghcr.io/annoyingvillager/flashshare:latest
 ```
 
 工作流使用仓库内置的 `GITHUB_TOKEN` 和 `packages: write` 权限，不需要额外配置个人 Token。首次推送后，如果 GHCR 包仍为私有，可在 GitHub 包的 Package settings 中调整可见性。
+
+部署时可通过 `FLASHSHARE_IMAGE` 固定版本或更换镜像仓库。默认值跟随 `main` 分支的 `edge` 标签；生产环境更建议使用 `v*` 标签生成的语义化版本，例如 `ghcr.io/annoyingvillager/flashshare:1.0.0`。
 
 ## 环境变量
 

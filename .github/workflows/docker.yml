@@ -29,6 +29,9 @@ jobs:
       - name: Check out source
         uses: actions/checkout@v4
 
+      - name: Validate Docker Compose configuration
+        run: docker compose config --quiet
+
       - name: Set up QEMU
         if: github.event_name != 'pull_request'
         uses: docker/setup-qemu-action@v3

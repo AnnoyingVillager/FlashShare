@@ -1,10 +1,7 @@
 services:
   app:
-    build:
-      context: .
-      args:
-        VERSION: local
-    image: flashshare:local
+    image: ${FLASHSHARE_IMAGE:-ghcr.io/annoyingvillager/flashshare:edge}
+    pull_policy: always
     restart: unless-stopped
     environment:
       FLASHSHARE_DATA_DIR: /data
@@ -14,7 +11,7 @@ services:
       FLASHSHARE_COOKIE_SECURE: ${FLASHSHARE_COOKIE_SECURE:-true}
       FLASHSHARE_TRUST_PROXY: ${FLASHSHARE_TRUST_PROXY:-true}
     ports:
-      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:${FLASHSHARE_LOCAL_PORT:-8080}:8080"
     volumes:
       - flashshare-data:/data
     read_only: true
@@ -28,7 +25,6 @@ services:
   caddy:
     image: caddy:2.10-alpine
     restart: unless-stopped
-    profiles: ["caddy"]
     depends_on:
       app:
         condition: service_healthy
