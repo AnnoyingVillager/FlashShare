@@ -1,422 +1,220 @@
-package server
+Û^š›bh¥êß¢¹­…â'ŠØš–,ŞçÚº[C®+Ş²Š^­«b¢z'¶…ŠW’ÊË^ššè¾'^­ö¢•ç\XÚØYÙHÙ\™\‚‚š[\Ü
+‚H˜]\È‚‚H˜ÛÛ^‚‚H™[˜ÛÙ[™ËÚœÛÛˆ‚‚H™›]‚‚Hš[È‚‚Hš[ËÙœÈ‚‚H›Z[YKÛ][\\‚‚H›™]Ú‚‚H›™]ÚØÛÛÚÚYZ˜\ˆ‚‚H›™]ÚÚ\İ‚‚H›™]İ\›‚‚H›ÜÈ‚‚Hœ]Ùš[\]‚‚Hœİš[™ÜÈ‚‚H\İ[™È‚‚H\İ[™ËÙœİ\İ‚‚H[YH‚‚‚H™Ú]X‹˜ÛÛKÙÛÜš[KİÙXœÛØÚÙ]‚ŠB‚™[˜È\İÛZ[SY™XŞXÛP[™™Yœ™\Ú
+
+\İ[™Ë•
+HÂ‚X\Ù\™\‹ÛY[H™]Õ\İ\
+
+B‚YY™\ˆÙ\™\‹ÛÜÙJ
+B‚YY™\ˆ\ÛÜÙJ
+B‚‚\™\ÜÛœÙHHÒ”ÓÓŠÛY[“Y]ÙÜİÙ\™\‹•T“
+È‹Ø\KÜÙ]\‹X\Üİš[™×X[^Â‚BH\Ù\›˜[YHˆ˜YZ[ˆ‹œ\ÜİÛÜ™ˆ˜K]™\K[Û™Ë\\ÜİÛÜ™‹‚_KˆŠB‚ZYˆ™\ÜÛœÙK”İ]\ĞÛÙHOH”İ]\ĞÜ™X]YÂ‚B]‘˜][ŠœÙ]\İ]\ÈH	Y‹™\ÜÛœÙK”İ]\ĞÛÙJB‚_B‚\™\ÜÛœÙK›ÙKÛÜÙJ
+B‚‚XÜ™X]YHÒ”ÓÓŠÛY[“Y]ÙÜİÙ\™\‹•T“
+È‹Ø\KÜÚ\™\È‹X\Üİš[™×X[^Â‚BH]Hˆ\İ›Ü‹‚BHœÙ\ÜÚ[Û•[Y[İ]ÙXÛÛ™ÈˆÌ‚BH›[šÕ˜[Y]TÙXÛÛ™ÈˆÍŒ‚BHš\[İÈˆ×\İš[™ŞßK‚BHš\[Hˆ×\İš[™ŞßK‚BH™Y˜][[YÛˆˆ˜Ù[\ˆ‹‚BHš][\Èˆ×[X\Üİš[™×X[^Â‚BB^È˜›ØÚÜÈˆ×[X\Üİš[™×\İš[™ŞŞÈ\Hˆ›X\šÙİÛˆ‹^ˆŠŠ™š\œİ
+Šˆ‹˜[YÛˆˆ˜Ù[\ˆŸ__K‚BB^È˜›ØÚÜÈˆ×[X\Üİš[™×\İš[™ŞŞÈ\Hˆ›X\šÙİÛˆ‹^ˆœÙXÛÛ™‹˜[YÛˆˆ›YŸ__K‚B_K‚_KˆŠB‚ZYˆÜ™X]Y”İ]\ĞÛÙHOH”İ]\ĞÜ™X]YÂ‚BX›ÙKÈH[Ë”™XY[
+Ü™X]Y›ÙJB‚B]‘˜][Š˜Ü™X]HÚ\™Hİ]\ÈH	Yˆ	\È‹Ü™X]Y”İ]\ĞÛÙK›ÙJB‚_B‚]˜\ˆÜ™X]P›ÙHİXİÂ‚BTÚ\™HÚ\™HœÛÛˆœÚ\™H˜‚_B‚YXÛÙT™\ÜÛœÙJÜ™X]Y	˜Ü™X]P›ÙJB‚\\œÙY\œˆH\›”\œÙJÜ™X]P›ÙK”Ú\™K”X›XÓ[šÊB‚ZYˆ\œˆOHš[Â‚B]‘˜][
+\œŠB‚_B‚\ÙXÜ™]Hİš[™ÜË•š[T™Yš^
+\œÙY‘œ˜YÛY[šÏHŠB‚ZYˆÙXÜ™]OHˆˆÂ‚B]‘˜][
+œX›XÈ[šÈ\È›ÈÙXÜ™]œ˜YÛY[ŠB‚_B‚‚XÛZ[SÛ™HHÛZ[TÚ\™JÛY[Ù\™\‹•T“Ü™X]P›ÙK”Ú\™K”X›XÒQÙXÜ™]
+B‚Yš\œİÛÛ[HÙ]ÛZ[JÛY[Ù\™\‹•T“ÛZ[SÛ™KÛZ[RQÛZ[SÛ™K•ÚÙ[ŠB‚ZYˆ[Šš\œİÛÛ[’][\ÊHOHHš\œİÛÛ[’][\ÖÌK›ØÚÜÖÌK•^OHŠŠ™š\œİ
+ŠˆˆÂ‚B]‘˜][Š[™^XİYš\œİÛÛ[ˆ	Jİˆ‹š\œİÛÛ[
+B‚_B‚\İ\YHİ\ÛZ[JÛY[Ù\™\‹•T“ÛZ[SÛ™KÛZ[RQÛZ[SÛ™K•ÚÙ[ŠB‚ZYˆİ\Y‘^\™\Ğ]H›İÕ[š^
 
-import (
-	"bytes"
-	"encoding/json"
-	"fmt"
-	"io"
-	"io/fs"
-	"mime/multipart"
-	"net/http"
-	"net/http/cookiejar"
-	"net/http/httptest"
-	"net/url"
-	"os"
-	"path/filepath"
-	"strings"
-	"testing"
-	"testing/fstest"
-	"time"
+HÂ‚B]‘˜][
+˜ÛZ[HY›İ™XÙZ]™H[ˆ^\HŠB‚_B‚KËÈH™[ØY™\]Y\İ]\İ™]šY]™HHØ[YHÛZ[H˜]\ˆ[ˆ[ØØ]H[›İ\ˆ][K‚‚XYØZ[ˆHÙ]ÛZ[JÛY[Ù\™\‹•T“ÛZ[SÛ™KÛZ[RQÛZ[SÛ™K•ÚÙ[ŠB‚ZYˆYØZ[‹’][\ÖÌK›ØÚÜÖÌK•^OHŠŠ™š\œİ
+ŠˆˆÂ‚B]‘˜][
+œ™Yœ™\ÚÚ[™ÙYH\ÜÚYÛ™YÛÛ[ŠB‚_B‚‚]ÜÕT“HÜÈˆ
+Èİš[™ÜË•š[T™Yš^
+Ù\™\‹•T“šŠH
+È‹Ø\KÜX›XËØÛZ[\ËÈˆ
+ÈÛZ[SÛ™KÛZ[RQ
+È‹İÜÈ‚‚YX[\ˆHÙXœÛØÚÙ]‘X[\ÔİXœ›İØÛÛÎˆ×\İš[™ŞÈ™›\ÚÚ\™KŒH‹ÛZ[SÛ™K•ÚÙ[Ÿ_B‚XÛÛ›‹Ë\œˆHX[\‹‘X[
+ÜÕT“š[
+B‚ZYˆ\œˆOHš[Â‚B]‘˜][ŠÙXœÛØÚÙ]X[ˆ	]ˆ‹\œŠB‚_B‚XÛÛ›‹ÛÜÙJ
+B‚][YK”ÛY\
+L
+ˆ[YK“Z[\ÙXÛÛ™
+B‚‚WË\œˆH\™‹‘^XÊTUHÛZ[\ÈÑUX\ÙWÙ^\™\×Ø]OÈÒT‘HYOØ›İÕ[š^
 
-	"github.com/gorilla/websocket"
-)
+KLKÛZ[SÛ™KÛZ[RQ
+B‚ZYˆ\œˆOHš[Â‚B]‘˜][
+\œŠB‚_B‚ZYˆ\œˆH\˜ÛX[\^\™Y
 
-func TestClaimLifecycleAndRefresh(t *testing.T) {
-	app, server, client := newTestApp(t)
-	defer server.Close()
-	defer app.Close()
+NÈ\œˆOHš[Â‚B]‘˜][
+\œŠB‚_B‚Y^\™YHÙ]˜]ÊÛY[Ù\™\‹•T“‹Ø\KÜX›XËØÛZ[\ËÈŠØÛZ[SÛ™KÛZ[RQÛZ[SÛ™K•ÚÙ[ŠB‚ZYˆ^\™Y”İ]\ĞÛÙHOH”İ]\ÑÛÛ™HÂ‚BX›ÙKÈH[Ë”™XY[
+^\™Y›ÙJB‚B]‘˜][Š™\İ›ŞYYÛZ[Hİ]\ÈH	Yˆ	\È‹^\™Y”İ]\ĞÛÙK›ÙJB‚_B‚Y^\™Y›ÙKÛÜÙJ
+B‚‚XÛZ[UÛÈHÛZ[TÚ\™JÛY[Ù\™\‹•T“Ü™X]P›ÙK”Ú\™K”X›XÒQÙXÜ™]
+B‚ZYˆÛZ[UÛËÛZ[RQOHÛZ[SÛ™KÛZ[RQÂ‚B]‘˜][
+›™]ÈÙ\ÜÚ[Ûˆ™]\ÙYHš[ÜˆÛZ[HŠB‚_B‚\ÙXÛÛ™ÛÛ[HÙ]ÛZ[JÛY[Ù\™\‹•T“ÛZ[UÛËÛZ[RQÛZ[UÛË•ÚÙ[ŠB‚ZYˆÙXÛÛ™ÛÛ[’][\ÖÌK›ØÚÜÖÌK•^OHœÙXÛÛ™ˆÂ‚B]‘˜][Š›™]ÈÙ\ÜÚ[ÛˆÛİÜ›Û™È][Nˆ	Jİˆ‹ÙXÛÛ™ÛÛ[
+B‚_BŸB‚™[˜È\İ\İÚ\™\ĞY\Ü™X]QÙ\Ó›İXYØÚÊ
+\İ[™Ë•
+HÂ‚X\Ù\™\‹ÛY[H™]Õ\İ\
+
+B‚YY™\ˆÙ\™\‹ÛÜÙJ
+B‚YY™\ˆ\ÛÜÙJ
+B‚‚\™\ÜÛœÙHHÒ”ÓÓŠÛY[“Y]ÙÜİÙ\™\‹•T“
+È‹Ø\KÜÙ]\‹X\Üİš[™×X[^Â‚BH\Ù\›˜[YHˆ˜YZ[ˆ‹œ\ÜİÛÜ™ˆ›\İ\Ú\™\Ë\\ÜİÛÜ™‹‚_KˆŠB‚\™\ÜÛœÙK›ÙKÛÜÙJ
+B‚‚XÜ™X]YHÒ”ÓÓŠÛY[“Y]ÙÜİÙ\™\‹•T“
+È‹Ø\KÜÚ\™\È‹X\Üİš[™×X[^Â‚BH]Hˆš\ÚX›H[[YYX][H‹œÙ\ÜÚ[Û•[Y[İ]ÙXÛÛ™ÈˆÌ›[šÕ˜[Y]TÙXÛÛ™ÈˆÍŒ‚BHš\[İÈˆ×\İš[™ŞßKš\[Hˆ×\İš[™ŞßK™Y˜][[YÛˆˆ˜Ù[\ˆ‹‚BHš][\Èˆ×[X\Üİš[™×X[^ŞÈ˜›ØÚÜÈˆ×[X\Üİš[™×\İš[™ŞŞÈ\Hˆ›X\šÙİÛˆ‹^ˆš[È‹˜[YÛˆˆ˜Ù[\ˆŸ___K‚_KˆŠB‚ZYˆÜ™X]Y”İ]\ĞÛÙHOH”İ]\ĞÜ™X]YÂ‚BX›ÙKÈH[Ë”™XY[
+Ü™X]Y›ÙJB‚BXÜ™X]Y›ÙKÛÜÙJ
+B‚B]‘˜][Š˜Ü™X]HÚ\™Hİ]\ÈH	Yˆ	\È‹Ü™X]Y”İ]\ĞÛÙK›ÙJB‚_B‚XÜ™X]Y›ÙKÛÜÙJ
+B‚‚XİØ[˜Ù[HÛÛ^•Ú][Y[İ]
+ÛÛ^˜XÚÙÜ›İ[™
 
-	response := doJSON(t, client, http.MethodPost, server.URL+"/api/setup", map[string]any{
-		"username": "admin", "password": "a-very-long-password",
-	}, "")
-	if response.StatusCode != http.StatusCreated {
-		t.Fatalf("setup status = %d", response.StatusCode)
-	}
-	response.Body.Close()
+KŠ[YK”ÙXÛÛ™
+B‚YY™\ˆØ[˜Ù[
 
-	created := doJSON(t, client, http.MethodPost, server.URL+"/api/shares", map[string]any{
-		"title":                 "test drop",
-		"sessionTimeoutSeconds": 300,
-		"linkValiditySeconds":   3600,
-		"ipAllow":               []string{},
-		"ipDeny":                []string{},
-		"defaultAlign":          "center",
-		"items": []map[string]any{
-			{"blocks": []map[string]string{{"type": "markdown", "text": "**first**", "align": "center"}}},
-			{"blocks": []map[string]string{{"type": "markdown", "text": "second", "align": "left"}}},
-		},
-	}, "")
-	if created.StatusCode != http.StatusCreated {
-		body, _ := io.ReadAll(created.Body)
-		t.Fatalf("create share status = %d: %s", created.StatusCode, body)
-	}
-	var createBody struct {
-		Share Share `json:"share"`
-	}
-	decodeResponse(t, created, &createBody)
-	parsed, err := url.Parse(createBody.Share.PublicLink)
-	if err != nil {
-		t.Fatal(err)
-	}
-	secret := strings.TrimPrefix(parsed.Fragment, "k=")
-	if secret == "" {
-		t.Fatal("public link has no secret fragment")
-	}
+B‚\™\K\œˆH“™]Ô™\]Y\İÚ]ÛÛ^
+İ“Y]ÙÙ]Ù\™\‹•T“
+È‹Ø\KÜÚ\™\È‹š[
+B‚ZYˆ\œˆOHš[Â‚B]‘˜][
+\œŠB‚_B‚[\İY\œˆHÛY[‘Ê™\JB‚ZYˆ\œˆOHš[Â‚B]‘˜][Š›\İÚ\™\È›ØÚÙYY\ˆÜ™X]Nˆ	]ˆ‹\œŠB‚_B‚YY™\ˆ\İY›ÙKÛÜÙJ
+B‚ZYˆ\İY”İ]\ĞÛÙHOH”İ]\ÓÒÈÂ‚BX›ÙKÈH[Ë”™XY[
+\İY›ÙJB‚B]‘˜][Š›\İÚ\™\Èİ]\ÈH	Yˆ	\È‹\İY”İ]\ĞÛÙK›ÙJB‚_B‚]˜\ˆ›ÙHİXİÂ‚BTÚ\™\È×TÚ\™HœÛÛˆœÚ\™\È˜‚_B‚ZYˆ\œˆHœÛÛ‹“™]ÑXÛÙ\Š\İY›ÙJK‘XÛÙJ	˜›ÙJNÈ\œˆOHš[Â‚B]‘˜][
+\œŠB‚_B‚ZYˆ[Š›ÙK”Ú\™\ÊHOHH›ÙK”Ú\™\ÖÌK”X›XÓ[šÈOHˆˆÂ‚B]‘˜][Š[™^XİYÚ\™\È™\ÜÛœÙNˆ	Jİˆ‹›ÙK”Ú\™\ÊB‚_BŸB‚™[˜È\İÙ][™ÜĞ[™ÒQ•˜[Y][ÛŠ
+\İ[™Ë•
+HÂ‚\ÈHY˜][Ù][™ÜÊ
+B‚ZYˆ\œˆH˜[Y]TÙ][™ÜÊ	œÊNÈ\œˆOHš[Â‚B]‘˜][Š™Y˜][Ù][™ÜÈ[˜[Yˆ	]ˆ‹\œŠB‚_B‚]˜[Y\Ë\œˆH›Ü›X[^™PÒQœÊ×\İš[™ŞÈŒLŒŒH‹ŒŒN™‹ÌÌˆ‹ŒLŒŒKÌÌˆŸJB‚ZYˆ\œˆOHš[Â‚B]‘˜][
+\œŠB‚_B‚ZYˆ[Š˜[Y\ÊHOHˆ˜[Y\ÖÌHOHŒLŒŒKÌÌˆˆÂ‚B]‘˜][Š[™^XİYÒQœÎˆ	Hİˆ‹˜[Y\ÊB‚_B‚ZYˆË\œˆH›Ü›X[^™PÒQœÊ×\İš[™ŞÈ››İX[‹Z\ŸJNÈ\œˆOHš[Â‚B]‘˜][
+š[˜[YÒQˆØ\ÈXØÙ\YŠB‚_BŸB‚™[˜È\İ\ÜÙ]\ØY[™ÛZ[QİÛ›ØY
+
+\İ[™Ë•
+HÂ‚X\Ù\™\‹ÛY[H™]Õ\İ\
+
+B‚YY™\ˆÙ\™\‹ÛÜÙJ
+B‚YY™\ˆ\ÛÜÙJ
+B‚‚\™\ÜÛœÙHHÒ”ÓÓŠÛY[“Y]ÙÜİÙ\™\‹•T“
+È‹Ø\KÜÙ]\‹X\Üİš[™×X[^Â‚BH\Ù\›˜[YHˆ˜YZ[ˆ‹œ\ÜİÛÜ™ˆ˜[›İ\‹[Û™Ë\\ÜİÛÜ™‹‚_KˆŠB‚\™\ÜÛœÙK›ÙKÛÜÙJ
+B‚‚\^[ØYH×X]J[\Ü˜\K\\ÜİÛÜ™XÛÜœ™XİZÜœÙWˆŠB‚]˜\ˆ\ØY]\ËY™™\‚‚]Üš]\ˆH][\\“™]ÕÜš]\Š	\ØY
+B‚\\\œˆHÜš]\‹Ü™X]Q›Ü›Qš[J™š[H‹˜Ü™Y[X[ËŠB‚ZYˆ\œˆOHš[Â‚B]‘˜][
+\œŠB‚_B‚WËÈH\•Üš]J^[ØY
+B‚WÈHÜš]\‹ÛÜÙJ
+B‚\™\KÈH“™]Ô™\]Y\İ
+“Y]ÙÜİÙ\™\‹•T“
+È‹Ø\KØ\ÜÙ]È‹	\ØY
+B‚\™\K’XY\‹”Ù]
+ÛÛ[U\H‹Üš]\‹‘›Ü›Q]PÛÛ[\J
+JB‚\™\ÜÛœÙK\œˆHÛY[‘Ê™\JB‚ZYˆ\œˆOHš[Â‚B]‘˜][
+\œŠB‚_B‚ZYˆ™\ÜÛœÙK”İ]\ĞÛÙHOH”İ]\ĞÜ™X]YÂ‚BX›ÙKÈH[Ë”™XY[
+™\ÜÛœÙK›ÙJB‚B]‘˜][Š\ØYİ]\ÈH	Yˆ	\È‹™\ÜÛœÙK”İ]\ĞÛÙK›ÙJB‚_B‚]˜\ˆ\ØY›ÙHİXİÂ‚BP\ÜÙ]\ÜÙ]œÛÛˆ˜\ÜÙ]˜‚_B‚YXÛÙT™\ÜÛœÙJ™\ÜÛœÙK	\ØY›ÙJB‚ZYˆ\ØY›ÙK\ÜÙ]”Ú^™HOH[
+[Š^[ØY
+JHÂ‚B]‘˜][Š˜\ÜÙ]Ú^™HH	Y‹\ØY›ÙK\ÜÙ]”Ú^™JB‚_B‚‚XÜ™X]YHÒ”ÓÓŠÛY[“Y]ÙÜİÙ\™\‹•T“
+È‹Ø\KÜÚ\™\È‹X\Üİš[™×X[^Â‚BH]Hˆ˜]XÚY[›Ü‹œÙ\ÜÚ[Û•[Y[İ]ÙXÛÛ™ÈˆÌ›[šÕ˜[Y]TÙXÛÛ™ÈˆÍŒ‚BHš\[İÈˆ×\İš[™ŞßKš\[Hˆ×\İš[™ŞßK™Y˜][[YÛˆˆ˜Ù[\ˆ‹‚BHš][\Èˆ×[X\Üİš[™×X[^ŞÈ˜›ØÚÜÈˆ×[X\Üİš[™×\İš[™ŞŞÂ‚BBH\Hˆ™š[H‹˜\ÜÙ]Yˆ\ØY›ÙK\ÜÙ]’Q‚B____K‚_KˆŠB‚ZYˆÜ™X]Y”İ]\ĞÛÙHOH”İ]\ĞÜ™X]YÂ‚BX›ÙKÈH[Ë”™XY[
+Ü™X]Y›ÙJB‚B]‘˜][Š˜Ü™X]H\ÜÙ]Ú\™Hİ]\ÈH	Yˆ	\È‹Ü™X]Y”İ]\ĞÛÙK›ÙJB‚_B‚]˜\ˆÜ™X]P›ÙHİXİÂ‚BTÚ\™HÚ\™HœÛÛˆœÚ\™H˜‚_B‚YXÛÙT™\ÜÛœÙJÜ™X]Y	˜Ü™X]P›ÙJB‚\\œÙYÈH\›”\œÙJÜ™X]P›ÙK”Ú\™K”X›XÓ[šÊB‚\ÙXÜ™]Hİš[™ÜË•š[T™Yš^
+\œÙY‘œ˜YÛY[šÏHŠB‚XÛZ[HHÛZ[TÚ\™JÛY[Ù\™\‹•T“Ü™X]P›ÙK”Ú\™K”X›XÒQÙXÜ™]
+B‚WÈHİ\ÛZ[JÛY[Ù\™\‹•T“ÛZ[KÛZ[RQÛZ[K•ÚÙ[ŠB‚X\ÜÙ]™\ÜÛœÙHHÙ]˜]ÊÛY[Ù\™\‹•T“‚BY›]”Üš[Š‹Ø\KÜX›XËØÛZ[\ËÉ\ËØ\ÜÙ]ËÉ\È‹ÛZ[KÛZ[RQ\ØY›ÙK\ÜÙ]’Q
+KÛZ[K•ÚÙ[ŠB‚ZYˆ\ÜÙ]™\ÜÛœÙK”İ]\ĞÛÙHOH”İ]\ÓÒÈÂ‚BX›ÙKÈH[Ë”™XY[
+\ÜÙ]™\ÜÛœÙK›ÙJB‚B]‘˜][Š˜\ÜÙ]™\ÜÛœÙHİ]\ÈH	Yˆ	\È‹\ÜÙ]™\ÜÛœÙK”İ]\ĞÛÙK›ÙJB‚_B‚YÛİÈH[Ë”™XY[
+\ÜÙ]™\ÜÛœÙK›ÙJB‚X\ÜÙ]™\ÜÛœÙK›ÙKÛÜÙJ
+B‚ZYˆX]\Ë‘\]X[
+Ûİ^[ØY
+HÂ‚B]‘˜][Š˜\ÜÙ]ÛÛ[Z\ÛX]Úˆ	\H‹Ûİ
+B‚_B‚ZYˆ\œˆH\™\İ›ŞPÛZ[JÛZ[KÛZ[RQ\İŠNÈ\œˆOHš[Â‚B]‘˜][
+\œŠB‚_B‚XY\ˆHÙ]˜]ÊÛY[Ù\™\‹•T“‚BY›]”Üš[Š‹Ø\KÜX›XËØÛZ[\ËÉ\ËØ\ÜÙ]ËÉ\È‹ÛZ[KÛZ[RQ\ØY›ÙK\ÜÙ]’Q
+KÛZ[K•ÚÙ[ŠB‚ZYˆY\‹”İ]\ĞÛÙHOH”İ]\ÑÛÛ™H	‰ˆY\‹”İ]\ĞÛÙHOH”İ]\Õ[˜]]Üš^™YÂ‚B]‘˜][Š™\İ›ŞYY\ÜÙ]İ]\ÈH	Y‹Y\‹”İ]\ĞÛÙJB‚_B‚XY\‹›ÙKÛÜÙJ
+BŸB‚™[˜È\İ\›œİ[PÛZ[T™\]Z\™\ÔÙ\™\•™\šYšXØ][ÛŠ
+\İ[™Ë•
+HÂ‚X\Ù\™\‹ÛY[H™]Õ\İ\
+
+B‚YY™\ˆÙ\™\‹ÛÜÙJ
+B‚YY™\ˆ\ÛÜÙJ
+B‚‚\™\ÜÛœÙHHÒ”ÓÓŠÛY[“Y]ÙÜİÙ\™\‹•T“
+È‹Ø\KÜÙ]\‹X\Üİš[™×X[^Â‚BH\Ù\›˜[YHˆ˜YZ[ˆ‹œ\ÜİÛÜ™ˆ\›œİ[K]\İ\\ÜİÛÜ™‹‚_KˆŠB‚\™\ÜÛœÙK›ÙKÛÜÙJ
+B‚XÜ™X]YHÒ”ÓÓŠÛY[“Y]ÙÜİÙ\™\‹•T“
+È‹Ø\KÜÚ\™\È‹X\Üİš[™×X[^Â‚BH]Hˆœ›İXİY›Ü‹œÙ\ÜÚ[Û•[Y[İ]ÙXÛÛ™ÈˆÌ›[šÕ˜[Y]TÙXÛÛ™ÈˆÍŒ‚BHš\[İÈˆ×\İš[™ŞßKš\[Hˆ×\İš[™ŞßK™Y˜][[YÛˆˆ˜Ù[\ˆ‹‚BHš][\Èˆ×[X\Üİš[™×X[^ŞÈ˜›ØÚÜÈˆ×[X\Üİš[™×\İš[™ŞŞÈ\Hˆ›X\šÙİÛˆ‹^ˆœ›İXİY‹˜[YÛˆˆ˜Ù[\ˆŸ___K‚_KˆŠB‚]˜\ˆÜ™X]P›ÙHİXİÂ‚BTÚ\™HÚ\™HœÛÛˆœÚ\™H˜‚_B‚YXÛÙT™\ÜÛœÙJÜ™X]Y	˜Ü™X]P›ÙJB‚\\œÙYÈH\›”\œÙJÜ™X]P›ÙK”Ú\™K”X›XÓ[šÊB‚\ÙXÜ™]Hİš[™ÜË•š[T™Yš^
+\œÙY‘œ˜YÛY[šÏHŠB‚‚]™\šYšY\Ø[ÈH‚]™\šYšY\ˆH\İ“™]ÔÙ\™\Š’[™\‘[˜Ê[˜ÊÈ”™\ÜÛœÙUÜš]\‹ˆ
+š”™\]Y\İ
+HÂ‚B]™\šYšY\Ø[ÊÊÂ‚BZYˆ\œˆH‹”\œÙQ›Ü›J
+NÈ\œˆOHš[Â‚BB]‘\œ›Ü™Šœ\œÙH™\šYšY\ˆ›Ü›Nˆ	]ˆ‹\œŠB‚B_B‚BZYˆ‹‘›Ü›U˜[YJœÙXÜ™]ŠHOH\›œİ[K\ÙXÜ™]ˆ‹‘›Ü›U˜[YJœ™\ÜÛœÙHŠHOH˜[Y]ÚÙ[ˆˆÂ‚BB]Üš]R”ÓÓŠË”İ]\ÓÒËX\Üİš[™×X[^ÈœİXØÙ\ÜÈˆ˜[Ù_JB‚BB\™]\›‚‚B_B‚B]Üš]R”ÓÓŠË”İ]\ÓÒËX\Üİš[™×X[^Â‚BBHœİXØÙ\ÜÈˆYK˜Xİ[Ûˆˆ\›œİ[PXİ[Û‹˜Ù]HˆÜ™X]P›ÙK”Ú\™K”X›XÒQ‚B_JB‚_JJB‚YY™\ˆ™\šYšY\‹ÛÜÙJ
+B‚X\\›œİ[Q[™Ú[H™\šYšY\‹•T“‚‚\Ù][™ÜË\œˆH\™Ù]Ù][™ÜÊ
+B‚ZYˆ\œˆOHš[Â‚B]‘˜][
+\œŠB‚_B‚\Ù][™ÜË•\›œİ[Q[˜X›YHYB‚\Ù][™ÜË•\›œİ[TÚ]RÙ^HH\İ\Ú]KZÙ^H‚‚\Ù][™ÜË•\›œİ[TÙXÜ™]Ù^HH\›œİ[K\ÙXÜ™]‚‚ZYˆ\œˆH\œ]Ù][™ÜÊÙ][™ÜÊNÈ\œˆOHš[Â‚B]‘˜][
+\œŠB‚_B‚[ØYY\œˆH\™Ù]Ù][™ÜÊ
+B‚ZYˆ\œˆOHš[ØYY•\›œİ[TÙXÜ™]Ù^HOH\›œİ[K\ÙXÜ™]ˆ[ØYY•\›œİ[TÙXÜ™]ÛÛ™šYİ\™YÂ‚B]‘˜][ŠœÙXÜ™]›İ[™š\˜Z[Yˆ	Jİ‹	]ˆ‹ØYY\œŠB‚_B‚]˜\ˆÛØ˜[˜[YKÙXÜ™]˜[YHİš[™Â‚WÈH\™‹”]Y\T›İÊÑSPÕ˜[YH”“ÓHÙ][™ÜÈÒT‘HÙ^OIÙÛØ˜[	Ø
+K”ØØ[Š	™ÛØ˜[˜[YJB‚WÈH\™‹”]Y\T›İÊÑSPÕ˜[YH”“ÓHÙ][™ÜÈÒT‘HÙ^OIİ\›œİ[WÜÙXÜ™]	Ø
+K”ØØ[Š	œÙXÜ™]˜[YJB‚ZYˆİš[™ÜËÛÛZ[œÊÛØ˜[˜[YK\›œİ[K\ÙXÜ™]ŠHÙXÜ™]˜[YHOHˆˆİš[™ÜËÛÛZ[œÊÙXÜ™]˜[YK\›œİ[K\ÙXÜ™]ŠHÂ‚B]‘˜][
+•\›œİ[HÙXÜ™]Ø\ÈİÜ™Y[ˆZ[^ŠB‚_B‚‚X›ØÚÙYHÒ”ÓÓŠÛY[“Y]ÙÜİ‚B\Ù\™\‹•T“
+È‹Ø\KÜX›XËÜÚ\™\ËÈŠØÜ™X]P›ÙK”Ú\™K”X›XÒQ
+È‹ØÛZ[H‹‚B[X\Üİš[™×\İš[™ŞÈœÙXÜ™]ˆÙXÜ™]KˆŠB‚X›ØÚÙY›ÙKÛÜÙJ
+B‚ZYˆ›ØÚÙY”İ]\ĞÛÙHOH”İ]\Ñ›Ü˜šY[ˆ™\šYšY\Ø[ÈOHÂ‚B]‘˜][Š˜ÛZ[HÚ]İ]ÚÙ[ˆİ]\ÏIYØ[ÏIY‹›ØÚÙY”İ]\ĞÛÙK™\šYšY\Ø[ÊB‚_B‚X[İÙYHÒ”ÓÓŠÛY[“Y]ÙÜİ‚B\Ù\™\‹•T“
+È‹Ø\KÜX›XËÜÚ\™\ËÈŠØÜ™X]P›ÙK”Ú\™K”X›XÒQ
+È‹ØÛZ[H‹‚B[X\Üİš[™×\İš[™ŞÈœÙXÜ™]ˆÙXÜ™]\›œİ[UÚÙ[ˆˆ˜[Y]ÚÙ[ˆŸKˆŠB‚ZYˆ[İÙY”İ]\ĞÛÙHOH”İ]\ĞÜ™X]Y™\šYšY\Ø[ÈOHHÂ‚BX›ÙKÈH[Ë”™XY[
+[İÙY›ÙJB‚B]‘˜][Š™\šYšYYÛZ[Hİ]\ÏIYØ[ÏIYˆ	\È‹[İÙY”İ]\ĞÛÙK™\šYšY\Ø[Ë›ÙJB‚_B‚X[İÙY›ÙKÛÜÙJ
+B‚‚XYZ[”Ù][™ÜÈHÙ]˜]ÊÛY[Ù\™\‹•T“‹Ø\KØYZ[‹ÜÙ][™ÜÈ‹ˆŠB‚XYZ[›ÙKÈH[Ë”™XY[
+YZ[”Ù][™ÜË›ÙJB‚XYZ[”Ù][™ÜË›ÙKÛÜÙJ
+B‚ZYˆİš[™ÜËÛÛZ[œÊİš[™ÊYZ[›ÙJK\›œİ[K\ÙXÜ™]ŠHÂ‚B]‘˜][
+˜YZ[ˆÙ][™ÜÈ™\ÜÛœÙH^ÜÙYH\›œİ[HÙXÜ™]ŠB‚_BŸB‚™[˜È\İ[˜Ü\Yš[T›İ[™š\
+
+\İ[™Ë•
+HÂ‚Y\ˆH•[\\Š
+B‚ZÙ^HH]\Ë”™\X]
+×X]^ÍßKÌŠB‚X\H	\ØÙ™ÎˆÛÛ™šYŞÓX\İ\’Ù^NˆÙ^__B‚\]Hš[\]’›Ú[Š\‹˜›ØˆŠB‚\^[ØYH×X]J[\Ü˜\HXØÛİ[ˆ[\Œ—ˆŠB‚\Ú^™KYÙ\İ\œˆH\™[˜Ü\š[J]\Ë“™]Ô™XY\Š^[ØY
+K]˜\ÜÙ]]\İŠB‚ZYˆ\œˆOHš[Â‚B]‘˜][
+\œŠB‚_B‚ZYˆÚ^™HOH[
+[Š^[ØY
+JHÂ‚B]‘˜][ŠœÚ^™HH	Y‹Ú^™JB‚_B‚ZYˆ\œˆH\™\šYQš[J]˜\ÜÙ]]\İ‹YÙ\İ
+NÈ\œˆOHš[Â‚B]‘˜][
+\œŠB‚_B‚]˜\ˆİ]]]\ËY™™\‚‚ZYˆ\œˆH\™XÜ\š[UÊ]˜\ÜÙ]]\İ‹	›İ]]
+NÈ\œˆOHš[Â‚B]‘˜][
+\œŠB‚_B‚ZYˆX]\Ë‘\]X[
+İ]]]\Ê
+K^[ØY
+HÂ‚B]‘˜][Šœ›İ[™š\Z\ÛX]Úˆ	\H‹İ]]]\Ê
+JB‚_BŸB‚\HÛZ[T™\İ[İXİÂ‚PÛZ[RQİš[™ÈœÛÛˆ˜ÛZ[RY˜‚UÚÙ[ˆİš[™ÈœÛÛˆ˜ÛZ[UÚÙ[ˆ˜ŸB‚™[˜È™]Õ\İ\
+
+\İ[™Ë•
+H
 
-	claimOne := claimShare(t, client, server.URL, createBody.Share.PublicID, secret)
-	firstContent := getClaim(t, client, server.URL, claimOne.ClaimID, claimOne.Token)
-	if len(firstContent.Items) != 1 || firstContent.Items[0].Blocks[0].Text != "**first**" {
-		t.Fatalf("unexpected first content: %+v", firstContent)
-	}
-	started := startClaim(t, client, server.URL, claimOne.ClaimID, claimOne.Token)
-	if started.ExpiresAt <= nowUnix() {
-		t.Fatal("claim did not receive an expiry")
-	}
-	// A reload request must retrieve the same claim rather than allocate another item.
-	again := getClaim(t, client, server.URL, claimOne.ClaimID, claimOne.Token)
-	if again.Items[0].Blocks[0].Text != "**first**" {
-		t.Fatal("refresh changed the assigned content")
-	}
-
-	wsURL := "ws" + strings.TrimPrefix(server.URL, "http") + "/api/public/claims/" + claimOne.ClaimID + "/ws"
-	dialer := websocket.Dialer{Subprotocols: []string{"flashshare.v1", claimOne.Token}}
-	conn, _, err := dialer.Dial(wsURL, nil)
-	if err != nil {
-		t.Fatalf("websocket dial: %v", err)
-	}
-	conn.Close()
-	time.Sleep(50 * time.Millisecond)
-
-	_, err = app.db.Exec(`UPDATE claims SET lease_expires_at=? WHERE id=?`, nowUnix()-1, claimOne.ClaimID)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if err := app.cleanupExpired(); err != nil {
-		t.Fatal(err)
-	}
-	expired := getRaw(t, client, server.URL, "/api/public/claims/"+claimOne.ClaimID, claimOne.Token)
-	if expired.StatusCode != http.StatusGone {
-		body, _ := io.ReadAll(expired.Body)
-		t.Fatalf("destroyed claim status = %d: %s", expired.StatusCode, body)
-	}
-	expired.Body.Close()
-
-	claimTwo := claimShare(t, client, server.URL, createBody.Share.PublicID, secret)
-	if claimTwo.ClaimID == claimOne.ClaimID {
-		t.Fatal("new session reused the prior claim")
-	}
-	secondContent := getClaim(t, client, server.URL, claimTwo.ClaimID, claimTwo.Token)
-	if secondContent.Items[0].Blocks[0].Text != "second" {
-		t.Fatalf("new session got wrong item: %+v", secondContent)
-	}
-}
-
-func TestSettingsAndCIDRValidation(t *testing.T) {
-	s := defaultSettings()
-	if err := validateSettings(&s); err != nil {
-		t.Fatalf("default settings invalid: %v", err)
-	}
-	values, err := normalizeCIDRs([]string{"10.0.0.5", "2001:db8::/32", "10.0.0.5/32"})
-	if err != nil {
-		t.Fatal(err)
-	}
-	if len(values) != 2 || values[0] != "10.0.0.5/32" {
-		t.Fatalf("unexpected CIDRs: %#v", values)
-	}
-	if _, err := normalizeCIDRs([]string{"not-an-ip"}); err == nil {
-		t.Fatal("invalid CIDR was accepted")
-	}
-}
-
-func TestAssetUploadAndClaimDownload(t *testing.T) {
-	app, server, client := newTestApp(t)
-	defer server.Close()
-	defer app.Close()
-
-	response := doJSON(t, client, http.MethodPost, server.URL+"/api/setup", map[string]any{
-		"username": "admin", "password": "another-long-password",
-	}, "")
-	response.Body.Close()
-
-	payload := []byte("temporary-password=correct-horse\n")
-	var upload bytes.Buffer
-	writer := multipart.NewWriter(&upload)
-	part, err := writer.CreateFormFile("file", "credentials.txt")
-	if err != nil {
-		t.Fatal(err)
-	}
-	_, _ = part.Write(payload)
-	_ = writer.Close()
-	req, _ := http.NewRequest(http.MethodPost, server.URL+"/api/assets", &upload)
-	req.Header.Set("Content-Type", writer.FormDataContentType())
-	response, err = client.Do(req)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if response.StatusCode != http.StatusCreated {
-		body, _ := io.ReadAll(response.Body)
-		t.Fatalf("upload status = %d: %s", response.StatusCode, body)
-	}
-	var uploadBody struct {
-		Asset Asset `json:"asset"`
-	}
-	decodeResponse(t, response, &uploadBody)
-	if uploadBody.Asset.Size != int64(len(payload)) {
-		t.Fatalf("asset size = %d", uploadBody.Asset.Size)
-	}
-
-	created := doJSON(t, client, http.MethodPost, server.URL+"/api/shares", map[string]any{
-		"title": "attachment drop", "sessionTimeoutSeconds": 300, "linkValiditySeconds": 3600,
-		"ipAllow": []string{}, "ipDeny": []string{}, "defaultAlign": "center",
-		"items": []map[string]any{{"blocks": []map[string]string{{
-			"type": "file", "assetId": uploadBody.Asset.ID,
-		}}}},
-	}, "")
-	if created.StatusCode != http.StatusCreated {
-		body, _ := io.ReadAll(created.Body)
-		t.Fatalf("create asset share status = %d: %s", created.StatusCode, body)
-	}
-	var createBody struct {
-		Share Share `json:"share"`
-	}
-	decodeResponse(t, created, &createBody)
-	parsed, _ := url.Parse(createBody.Share.PublicLink)
-	secret := strings.TrimPrefix(parsed.Fragment, "k=")
-	claim := claimShare(t, client, server.URL, createBody.Share.PublicID, secret)
-	_ = startClaim(t, client, server.URL, claim.ClaimID, claim.Token)
-	assetResponse := getRaw(t, client, server.URL,
-		fmt.Sprintf("/api/public/claims/%s/assets/%s", claim.ClaimID, uploadBody.Asset.ID), claim.Token)
-	if assetResponse.StatusCode != http.StatusOK {
-		body, _ := io.ReadAll(assetResponse.Body)
-		t.Fatalf("asset response status = %d: %s", assetResponse.StatusCode, body)
-	}
-	got, _ := io.ReadAll(assetResponse.Body)
-	assetResponse.Body.Close()
-	if !bytes.Equal(got, payload) {
-		t.Fatalf("asset content mismatch: %q", got)
-	}
-	if err := app.destroyClaim(claim.ClaimID, "test"); err != nil {
-		t.Fatal(err)
-	}
-	after := getRaw(t, client, server.URL,
-		fmt.Sprintf("/api/public/claims/%s/assets/%s", claim.ClaimID, uploadBody.Asset.ID), claim.Token)
-	if after.StatusCode != http.StatusGone && after.StatusCode != http.StatusUnauthorized {
-		t.Fatalf("destroyed asset status = %d", after.StatusCode)
-	}
-	after.Body.Close()
-}
-
-func TestTurnstileClaimRequiresServerVerification(t *testing.T) {
-	app, server, client := newTestApp(t)
-	defer server.Close()
-	defer app.Close()
-
-	response := doJSON(t, client, http.MethodPost, server.URL+"/api/setup", map[string]any{
-		"username": "admin", "password": "turnstile-test-password",
-	}, "")
-	response.Body.Close()
-	created := doJSON(t, client, http.MethodPost, server.URL+"/api/shares", map[string]any{
-		"title": "protected drop", "sessionTimeoutSeconds": 300, "linkValiditySeconds": 3600,
-		"ipAllow": []string{}, "ipDeny": []string{}, "defaultAlign": "center",
-		"items": []map[string]any{{"blocks": []map[string]string{{"type": "markdown", "text": "protected", "align": "center"}}}},
-	}, "")
-	var createBody struct {
-		Share Share `json:"share"`
-	}
-	decodeResponse(t, created, &createBody)
-	parsed, _ := url.Parse(createBody.Share.PublicLink)
-	secret := strings.TrimPrefix(parsed.Fragment, "k=")
-
-	verifierCalls := 0
-	verifier := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		verifierCalls++
-		if err := r.ParseForm(); err != nil {
-			t.Errorf("parse verifier form: %v", err)
-		}
-		if r.FormValue("secret") != "turnstile-secret" || r.FormValue("response") != "valid-token" {
-			writeJSON(w, http.StatusOK, map[string]any{"success": false})
-			return
-		}
-		writeJSON(w, http.StatusOK, map[string]any{
-			"success": true, "action": turnstileAction, "cdata": createBody.Share.PublicID,
-		})
-	}))
-	defer verifier.Close()
-	app.turnstileEndpoint = verifier.URL
-
-	settings, err := app.getSettings()
-	if err != nil {
-		t.Fatal(err)
-	}
-	settings.TurnstileEnabled = true
-	settings.TurnstileSiteKey = "test-site-key"
-	settings.TurnstileSecretKey = "turnstile-secret"
-	if err := app.putSettings(settings); err != nil {
-		t.Fatal(err)
-	}
-	loaded, err := app.getSettings()
-	if err != nil || loaded.TurnstileSecretKey != "turnstile-secret" || !loaded.TurnstileSecretConfigured {
-		t.Fatalf("secret round trip failed: %+v, %v", loaded, err)
-	}
-	var globalValue, secretValue string
-	_ = app.db.QueryRow(`SELECT value FROM settings WHERE key='global'`).Scan(&globalValue)
-	_ = app.db.QueryRow(`SELECT value FROM settings WHERE key='turnstile_secret'`).Scan(&secretValue)
-	if strings.Contains(globalValue, "turnstile-secret") || secretValue == "" || strings.Contains(secretValue, "turnstile-secret") {
-		t.Fatal("Turnstile secret was stored in plaintext")
-	}
-
-	blocked := doJSON(t, client, http.MethodPost,
-		server.URL+"/api/public/shares/"+createBody.Share.PublicID+"/claim",
-		map[string]string{"secret": secret}, "")
-	blocked.Body.Close()
-	if blocked.StatusCode != http.StatusForbidden || verifierCalls != 0 {
-		t.Fatalf("claim without token status=%d calls=%d", blocked.StatusCode, verifierCalls)
-	}
-	allowed := doJSON(t, client, http.MethodPost,
-		server.URL+"/api/public/shares/"+createBody.Share.PublicID+"/claim",
-		map[string]string{"secret": secret, "turnstileToken": "valid-token"}, "")
-	if allowed.StatusCode != http.StatusCreated || verifierCalls != 1 {
-		body, _ := io.ReadAll(allowed.Body)
-		t.Fatalf("verified claim status=%d calls=%d: %s", allowed.StatusCode, verifierCalls, body)
-	}
-	allowed.Body.Close()
-
-	adminSettings := getRaw(t, client, server.URL, "/api/admin/settings", "")
-	adminBody, _ := io.ReadAll(adminSettings.Body)
-	adminSettings.Body.Close()
-	if strings.Contains(string(adminBody), "turnstile-secret") {
-		t.Fatal("admin settings response exposed the Turnstile secret")
-	}
-}
-
-func TestEncryptedFileRoundTrip(t *testing.T) {
-	dir := t.TempDir()
-	key := bytes.Repeat([]byte{7}, 32)
-	app := &App{cfg: Config{MasterKey: key}}
-	path := filepath.Join(dir, "blob")
-	payload := []byte("temporary account: hunter2\n")
-	size, digest, err := app.encryptFile(bytes.NewReader(payload), path, "asset-test")
-	if err != nil {
-		t.Fatal(err)
-	}
-	if size != int64(len(payload)) {
-		t.Fatalf("size = %d", size)
-	}
-	if err := app.verifyFile(path, "asset-test", digest); err != nil {
-		t.Fatal(err)
-	}
-	var output bytes.Buffer
-	if err := app.decryptFileTo(path, "asset-test", &output); err != nil {
-		t.Fatal(err)
-	}
-	if !bytes.Equal(output.Bytes(), payload) {
-		t.Fatalf("round trip mismatch: %q", output.Bytes())
-	}
-}
-
-type claimResult struct {
-	ClaimID string `json:"claimId"`
-	Token   string `json:"claimToken"`
-}
-
-func newTestApp(t *testing.T) (*App, *httptest.Server, *http.Client) {
-	t.Helper()
-	key := bytes.Repeat([]byte{9}, 32)
-	cfg := Config{DataDir: t.TempDir(), MasterKey: key, CookieSecure: false, TrustProxy: false}
-	for _, dir := range []string{"blobs", "tmp"} {
-		if err := ensureTestDir(filepath.Join(cfg.DataDir, dir)); err != nil {
-			t.Fatal(err)
-		}
-	}
-	static := fstest.MapFS{"index.html": &fstest.MapFile{Data: []byte("<!doctype html><title>test</title>")}}
-	app, err := New(cfg, "test", fs.FS(static))
-	if err != nil {
-		t.Fatal(err)
-	}
-	jar, _ := cookiejar.New(nil)
-	client := &http.Client{Jar: jar}
-	return app, httptest.NewServer(app.Handler()), client
-}
-
-func ensureTestDir(path string) error {
-	return os.MkdirAll(path, 0o700)
-}
-
-func doJSON(t *testing.T, client *http.Client, method, target string, body any, token string) *http.Response {
-	t.Helper()
-	b, err := json.Marshal(body)
-	if err != nil {
-		t.Fatal(err)
-	}
-	req, _ := http.NewRequest(method, target, bytes.NewReader(b))
-	req.Header.Set("Content-Type", "application/json")
-	if token != "" {
-		req.Header.Set("Authorization", "Bearer "+token)
-	}
-	response, err := client.Do(req)
-	if err != nil {
-		t.Fatal(err)
-	}
-	return response
-}
-
-func decodeResponse(t *testing.T, response *http.Response, dst any) {
-	t.Helper()
-	defer response.Body.Close()
-	if err := json.NewDecoder(response.Body).Decode(dst); err != nil {
-		t.Fatal(err)
-	}
-}
-
-func claimShare(t *testing.T, client *http.Client, base, publicID, secret string) claimResult {
-	t.Helper()
-	response := doJSON(t, client, http.MethodPost, base+"/api/public/shares/"+publicID+"/claim", map[string]string{"secret": secret}, "")
-	if response.StatusCode != http.StatusCreated {
-		body, _ := io.ReadAll(response.Body)
-		t.Fatalf("claim status = %d: %s", response.StatusCode, body)
-	}
-	var result claimResult
-	decodeResponse(t, response, &result)
-	return result
-}
-
-func getClaim(t *testing.T, client *http.Client, base, claimID, token string) ClaimContent {
-	t.Helper()
-	response := getRaw(t, client, base, "/api/public/claims/"+claimID, token)
-	if response.StatusCode != http.StatusOK {
-		body, _ := io.ReadAll(response.Body)
-		t.Fatalf("claim content status = %d: %s", response.StatusCode, body)
-	}
-	var result ClaimContent
-	decodeResponse(t, response, &result)
-	return result
-}
-
-func getRaw(t *testing.T, client *http.Client, base, path, token string) *http.Response {
-	t.Helper()
-	req, _ := http.NewRequest(http.MethodGet, base+path, nil)
-	if token != "" {
-		req.Header.Set("Authorization", "Bearer "+token)
-	}
-	response, err := client.Do(req)
-	if err != nil {
-		t.Fatal(err)
-	}
-	return response
-}
-
-func startClaim(t *testing.T, client *http.Client, base, claimID, token string) struct {
-	ExpiresAt int64 `json:"expiresAt"`
-} {
-	t.Helper()
-	response := doJSON(t, client, http.MethodPost, fmt.Sprintf("%s/api/public/claims/%s/start", base, claimID), map[string]any{}, token)
-	if response.StatusCode != http.StatusOK {
-		body, _ := io.ReadAll(response.Body)
-		t.Fatalf("start claim status = %d: %s", response.StatusCode, body)
-	}
-	var result struct {
-		ExpiresAt int64 `json:"expiresAt"`
-	}
-	decodeResponse(t, response, &result)
-	return result
-}
+\
+š\İ”Ù\™\‹
+šÛY[
+HÂ‚]’[\Š
+B‚ZÙ^HH]\Ë”™\X]
+×X]^Î_KÌŠB‚XÙ™ÈHÛÛ™šYŞÑ]Q\ˆ•[\\Š
+KX\İ\’Ù^NˆÙ^KÛÛÚÚYTÙXİ\™Nˆ˜[ÙK\İ›ŞNˆ˜[Ù_B‚Y›ÜˆË\ˆH˜[™ÙH×\İš[™ŞÈ˜›ØœÈ‹\ŸHÂ‚BZYˆ\œˆH[œİ\™U\İ\Šš[\]’›Ú[ŠÙ™Ë‘]Q\‹\ŠJNÈ\œˆOHš[Â‚BB]‘˜][
+\œŠB‚B_B‚_B‚\İ]XÈHœİ\İ“X\”ŞÈš[™^š[ˆ	™œİ\İ“X\š[^Ñ]Nˆ×X]JYØİ\H[]O\İİ]OˆŠ__B‚X\\œˆH™]ÊÙ™Ë\İ‹œË‘”Êİ]XÊJB‚ZYˆ\œˆOHš[Â‚B]‘˜][
+\œŠB‚_B‚Z˜\‹ÈHÛÛÚÚYZ˜\‹“™]Êš[
+B‚XÛY[H	šÛY[Ò˜\ˆ˜\ŸB‚\™]\›ˆ\\İ“™]ÔÙ\™\Š\’[™\Š
+JKÛY[ŸB‚™[˜È[œİ\™U\İ\Š]İš[™ÊH\œ›ÜˆÂ‚\™]\›ˆÜË“ZÙ\[
+]ÍÌ
+BŸB‚™[˜ÈÒ”ÓÓŠ
+\İ[™Ë•ÛY[
+šÛY[Y]Ù\™Ù]İš[™Ë›ÙH[KÚÙ[ˆİš[™ÊH
+š”™\ÜÛœÙHÂ‚]’[\Š
+B‚X‹\œˆHœÛÛ‹“X\œÚ[
+›ÙJB‚ZYˆ\œˆOHš[Â‚B]‘˜][
+\œŠB‚_B‚\™\KÈH“™]Ô™\]Y\İ
+Y]Ù\™Ù]]\Ë“™]Ô™XY\ŠŠJB‚\™\K’XY\‹”Ù]
+ÛÛ[U\H‹˜\XØ][Û‹ÚœÛÛˆŠB‚ZYˆÚÙ[ˆOHˆˆÂ‚B\™\K’XY\‹”Ù]
+]]Üš^˜][Ûˆ‹™X\™\ˆŠİÚÙ[ŠB‚_B‚\™\ÜÛœÙK\œˆHÛY[‘Ê™\JB‚ZYˆ\œˆOHš[Â‚B]‘˜][
+\œŠB‚_B‚\™]\›ˆ™\ÜÛœÙBŸB‚™[˜ÈXÛÙT™\ÜÛœÙJ
+\İ[™Ë•™\ÜÛœÙH
+š”™\ÜÛœÙKİ[JHÂ‚]’[\Š
+B‚YY™\ˆ™\ÜÛœÙK›ÙKÛÜÙJ
+B‚ZYˆ\œˆHœÛÛ‹“™]ÑXÛÙ\Š™\ÜÛœÙK›ÙJK‘XÛÙJİ
+NÈ\œˆOHš[Â‚B]‘˜][
+\œŠB‚_BŸB‚™[˜ÈÛZ[TÚ\™J
+\İ[™Ë•ÛY[
+šÛY[˜\ÙKX›XÒQÙXÜ™]İš[™ÊHÛZ[T™\İ[Â‚]’[\Š
+B‚\™\ÜÛœÙHHÒ”ÓÓŠÛY[“Y]ÙÜİ˜\ÙJÈ‹Ø\KÜX›XËÜÚ\™\ËÈŠÜX›XÒQ
+È‹ØÛZ[H‹X\Üİš[™×\İš[™ŞÈœÙXÜ™]ˆÙXÜ™]KˆŠB‚ZYˆ™\ÜÛœÙK”İ]\ĞÛÙHOH”İ]\ĞÜ™X]YÂ‚BX›ÙKÈH[Ë”™XY[
+™\ÜÛœÙK›ÙJB‚B]‘˜][Š˜ÛZ[Hİ]\ÈH	Yˆ	\È‹™\ÜÛœÙK”İ]\ĞÛÙK›ÙJB‚_B‚]˜\ˆ™\İ[ÛZ[T™\İ[‚YXÛÙT™\ÜÛœÙJ™\ÜÛœÙK	œ™\İ[
+B‚\™]\›ˆ™\İ[ŸB‚™[˜ÈÙ]ÛZ[J
+\İ[™Ë•ÛY[
+šÛY[˜\ÙKÛZ[RQÚÙ[ˆİš[™ÊHÛZ[PÛÛ[Â‚]’[\Š
+B‚\™\ÜÛœÙHHÙ]˜]ÊÛY[˜\ÙK‹Ø\KÜX›XËØÛZ[\ËÈŠØÛZ[RQÚÙ[ŠB‚ZYˆ™\ÜÛœÙK”İ]\ĞÛÙHOH”İ]\ÓÒÈÂ‚BX›ÙKÈH[Ë”™XY[
+™\ÜÛœÙK›ÙJB‚B]‘˜][Š˜ÛZ[HÛÛ[İ]\ÈH	Yˆ	\È‹™\ÜÛœÙK”İ]\ĞÛÙK›ÙJB‚_B‚]˜\ˆ™\İ[ÛZ[PÛÛ[‚YXÛÙT™\ÜÛœÙJ™\ÜÛœÙK	œ™\İ[
+B‚\™]\›ˆ™\İ[ŸB‚™[˜ÈÙ]˜]Ê
+\İ[™Ë•ÛY[
+šÛY[˜\ÙK]ÚÙ[ˆİš[™ÊH
+š”™\ÜÛœÙHÂ‚]’[\Š
+B‚\™\KÈH“™]Ô™\]Y\İ
+“Y]ÙÙ]˜\ÙJÜ]š[
+B‚ZYˆÚÙ[ˆOHˆˆÂ‚B\™\K’XY\‹”Ù]
+]]Üš^˜][Ûˆ‹™X\™\ˆŠİÚÙ[ŠB‚_B‚\™\ÜÛœÙK\œˆHÛY[‘Ê™\JB‚ZYˆ\œˆOHš[Â‚B]‘˜][
+\œŠB‚_B‚\™]\›ˆ™\ÜÛœÙBŸB‚™[˜Èİ\ÛZ[J
+\İ[™Ë•ÛY[
+šÛY[˜\ÙKÛZ[RQÚÙ[ˆİš[™ÊHİXİÂ‚Q^\™\Ğ][œÛÛˆ™^\™\Ğ]˜ŸHÂ‚]’[\Š
+B‚\™\ÜÛœÙHHÒ”ÓÓŠÛY[“Y]ÙÜİ›]”Üš[Š‰\ËØ\KÜX›XËØÛZ[\ËÉ\ËÜİ\‹˜\ÙKÛZ[RQ
+KX\Üİš[™×X[^ßKÚÙ[ŠB‚ZYˆ™\ÜÛœÙK”İ]\ĞÛÙHOH”İ]\ÓÒÈÂ‚BX›ÙKÈH[Ë”™XY[
+™\ÜÛœÙK›ÙJB‚B]‘˜][Šœİ\ÛZ[Hİ]\ÈH	Yˆ	\È‹™\ÜÛœÙK”İ]\ĞÛÙK›ÙJB‚_B‚]˜\ˆ™\İ[İXİÂ‚BQ^\™\Ğ][œÛÛˆ™^\™\Ğ]˜‚_B‚YXÛÙT™\ÜÛœÙJ™\ÜÛœÙK	œ™\İ[
+B‚\™]\›ˆ™\İ[ŸB

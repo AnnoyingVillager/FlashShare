@@ -1,456 +1,211 @@
-package server
+Û^š›bh¥êß¢¹­…â'ŠØš–,ŞçÚº[C®+Ş²Š^­«b¢z'¶…ŠW’ÊË^ššè¾'^­ö¢•ç\XÚØYÙHÙ\™\‚‚š[\Ü
+‚H˜Ü\ËÜİXH‚‚H™]X˜\ÙKÜÜ[‚‚H™[˜ÛÙ[™ËÚœÛÛˆ‚‚H™\œ›ÜœÈ‚‚H™›]‚‚H›™]‚‚H›™]Ú‚‚Hœ]Ùš[\]‚‚HœÛÜ‚‚Hœİš[™ÜÈ‚ŠB‚™[˜È
+H
+\
+H[™PÜ™X]TÚ\™JÈ”™\ÜÛœÙUÜš]\‹ˆ
+š”™\]Y\İ
+HÂ‚ZYˆ\Ø[YSÜšYÚ[ŠŠHÂ‚B]Üš]Q\œ›ÜŠË”İ]\Ñ›Ü˜šY[‹º+íù¬`¹§iy®¤9¥è9¥bŠB‚B\™]\›‚‚_B‚X]]\œˆHKœ™\]Z\™U\Ù\ŠŠB‚ZYˆ\œˆOHš[Â‚B]Üš]Q\œ›ÜŠË”İ]\Õ[˜]]Üš^™Y\œ‹‘\œ›ÜŠ
+JB‚B\™]\›‚‚_B‚]˜\ˆ™\HÜ™X]TÚ\™T™\]Y\İ‚ZYˆ\œˆHXÛÙR”ÓÓ“[Z]
+‹	œ™\KMŒ
+NÈ\œˆOHš[Â‚B]Üš]Q\œ›ÜŠË”İ]\Ğ˜Y™\]Y\İ\œ‹‘\œ›ÜŠ
+JB‚B\™]\›‚‚_B‚\Ù][™ÜË\œˆHK™Ù]Ù][™ÜÊ
+B‚ZYˆ\œˆOHš[Â‚B]Üš]Q\œ›ÜŠË”İ]\Ò[\›˜[Ù\™\‘\œ›Ü‹¹¥è9¬åz+îùcåº+¯¹ïkˆŠB‚B\™]\›‚‚_B‚\™\K•]HHİš[™ÜË•š[TÜXÙJ™\K•]JB‚ZYˆ™\K•]HOHˆˆ[Š×\[™J™\K•]JJHˆLÂ‚B]Üš]Q\œ›ÜŠË”İ]\Ğ˜Y™\]Y\İ¹¨!úh¦9oázhnù..ˆH9b,L9.*¹keùë)ˆŠB‚B\™]\›‚‚_B‚ZYˆ™\K”Ù\ÜÚ[Û•[Y[İ]OHÂ‚B\™\K”Ù\ÜÚ[Û•[Y[İ]HÙ][™ÜË‘Y˜][Ù\ÜÚ[Û•[Y[İ]‚_B‚ZYˆ™\K“[šÕ˜[Y]HOHÂ‚B\™\K“[šÕ˜[Y]HHÙ][™ÜË‘Y˜][[šÕ˜[Y]B‚_B‚ZYˆ™\K”Ù\ÜÚ[Û•[Y[İ]Ì™\K”Ù\ÜÚ[Û•[Y[İ]ˆÙ][™ÜË“X^Ù\ÜÚ[Û•[Y[İ]Â‚B]Üš]Q\œ›ÜŠË”İ]\Ğ˜Y™\]Y\İ›]”Üš[Š¹/&º+çy¥íºeí9oázhnùg*Ì9b,	Y9éä¹.búeí‹Ù][™ÜË“X^Ù\ÜÚ[Û•[Y[İ]
+JB‚B\™]\›‚‚_B‚ZYˆ™\K“[šÕ˜[Y]HŒ™\K“[šÕ˜[Y]HˆÙ][™ÜË“X^[šÕ˜[Y]HÂ‚B]Üš]Q\œ›ÜŠË”İ]\Ğ˜Y™\]Y\İ›]”Üš[Šºdï¹£©y§"y¥b9§'ùoázhnùg*Œ9b,	Y9éä¹.búeí‹Ù][™ÜË“X^[šÕ˜[Y]JJB‚B\™]\›‚‚_B‚ZYˆ[Š™\K’][\ÊHH[Š™\K’][\ÊHˆÙ][™ÜË“X^][\Ô\”Ú\™HÂ‚B]Üš]Q\œ›ÜŠË”İ]\Ğ˜Y™\]Y\İ›]”Üš[Š¹b!¹.ªùa¡yk®yoázhnù..ˆH9b,	Y9.ïH‹Ù][™ÜË“X^][\Ô\”Ú\™JJB‚B\™]\›‚‚_B‚X[İË\œˆH›Ü›X[^™PÒQœÊ™\K’T[İÊB‚ZYˆ\œˆOHš[Â‚B]Üš]Q\œ›ÜŠË”İ]\Ğ˜Y™\]Y\İ’T9æoyd#ycey¨/9o#ù¥è9¥bˆŠÙ\œ‹‘\œ›ÜŠ
+JB‚B\™]\›‚‚_B‚Y[K\œˆH›Ü›X[^™PÒQœÊ™\K’T[JB‚ZYˆ\œˆOHš[Â‚B]Üš]Q\œ›ÜŠË”İ]\Ğ˜Y™\]Y\İ’T:näyd#ycey¨/9o#ù¥è9¥bˆŠÙ\œ‹‘\œ›ÜŠ
+JB‚B\™]\›‚‚_B‚ZYˆ™\K‘Y˜][[YÛˆOH›Yˆ	‰ˆ™\K‘Y˜][[YÛˆOH˜Ù[\ˆˆ	‰ˆ™\K‘Y˜][[YÛˆOHœšYÚˆÂ‚B\™\K‘Y˜][[YÛˆH˜Ù[\ˆ‚‚_B‚ZYˆ\œˆHK˜[Y]R][R[œ]Ê]]•\Ù\‹’Q™\K’][\ËÙ][™ÜÊNÈ\œˆOHš[Â‚B]Üš]Q\œ›ÜŠË”İ]\Ğ˜Y™\]Y\İ\œ‹‘\œ›ÜŠ
+JB‚B\™]\›‚‚_B‚‚\Ú\™RQÈH˜[™ÛRQ
+MŠB‚\X›XÒQÈH˜[™ÛRQ
+
+B‚\ÙXÜ™]ÈH˜[™ÛUÚÙ[Š
+B‚\ÙXÜ™]Ú\\‹ÙXÜ™]›Û˜ÙK\œˆHK™[˜Ü\^
+œÚ\™K\ÙXÜ™]ˆŠÜÚ\™RQ×X]JÙXÜ™]
+JB‚ZYˆ\œˆOHš[Â‚B]Üš]Q\œ›ÜŠË”İ]\Ò[\›˜[Ù\™\‘\œ›Ü‹¹¥è9¬åyå'ù¢$9b!¹.ªùkáºd©HŠB‚B\™]\›‚‚_B‚X[İÒ”ÓÓ‹ÈHœÛÛ‹“X\œÚ[
+[İÊB‚Y[R”ÓÓ‹ÈHœÛÛ‹“X\œÚ[
+[JB‚XÜ™X]YH›İÕ[š^
 
-import (
-	"crypto/subtle"
-	"database/sql"
-	"encoding/json"
-	"errors"
-	"fmt"
-	"net"
-	"net/http"
-	"path/filepath"
-	"sort"
-	"strings"
-)
+B‚Y^\™\ÈHÜ™X]Y
+È[
+™\K“[šÕ˜[Y]JB‚XK™‹‘^XÊ‘QÒSˆSSQQPUX
+B‚]˜\ˆXİ]™H[‚Y\œˆHK™‹”]Y\T›İÊÑSPÕÓÕS•
 
-func (a *App) handleCreateShare(w http.ResponseWriter, r *http.Request) {
-	if !sameOrigin(r) {
-		writeError(w, http.StatusForbidden, "è¯·æ±‚æ¥æºæ— æ•ˆ")
-		return
-	}
-	auth, err := a.requireUser(r)
-	if err != nil {
-		writeError(w, http.StatusUnauthorized, err.Error())
-		return
-	}
-	var req CreateShareRequest
-	if err := decodeJSONLimit(r, &req, 16<<20); err != nil {
-		writeError(w, http.StatusBadRequest, err.Error())
-		return
-	}
-	settings, err := a.getSettings()
-	if err != nil {
-		writeError(w, http.StatusInternalServerError, "æ— æ³•è¯»å–è®¾ç½®")
-		return
-	}
-	req.Title = strings.TrimSpace(req.Title)
-	if req.Title == "" || len([]rune(req.Title)) > 100 {
-		writeError(w, http.StatusBadRequest, "æ ‡é¢˜å¿…é¡»ä¸º 1 åˆ° 100 ä¸ªå­—ç¬¦")
-		return
-	}
-	if req.SessionTimeout == 0 {
-		req.SessionTimeout = settings.DefaultSessionTimeout
-	}
-	if req.LinkValidity == 0 {
-		req.LinkValidity = settings.DefaultLinkValidity
-	}
-	if req.SessionTimeout < 30 || req.SessionTimeout > settings.MaxSessionTimeout {
-		writeError(w, http.StatusBadRequest, fmt.Sprintf("ä¼šè¯æ—¶é—´å¿…é¡»åœ¨ 30 åˆ° %d ç§’ä¹‹é—´", settings.MaxSessionTimeout))
-		return
-	}
-	if req.LinkValidity < 60 || req.LinkValidity > settings.MaxLinkValidity {
-		writeError(w, http.StatusBadRequest, fmt.Sprintf("é“¾æ¥æœ‰æ•ˆæœŸå¿…é¡»åœ¨ 60 åˆ° %d ç§’ä¹‹é—´", settings.MaxLinkValidity))
-		return
-	}
-	if len(req.Items) < 1 || len(req.Items) > settings.MaxItemsPerShare {
-		writeError(w, http.StatusBadRequest, fmt.Sprintf("åˆ†äº«å†…å®¹å¿…é¡»ä¸º 1 åˆ° %d ä»½", settings.MaxItemsPerShare))
-		return
-	}
-	allow, err := normalizeCIDRs(req.IPAllow)
-	if err != nil {
-		writeError(w, http.StatusBadRequest, "IP ç™½åå•æ ¼å¼æ— æ•ˆ: "+err.Error())
-		return
-	}
-	deny, err := normalizeCIDRs(req.IPDeny)
-	if err != nil {
-		writeError(w, http.StatusBadRequest, "IP é»‘åå•æ ¼å¼æ— æ•ˆ: "+err.Error())
-		return
-	}
-	if req.DefaultAlign != "left" && req.DefaultAlign != "center" && req.DefaultAlign != "right" {
-		req.DefaultAlign = "center"
-	}
-	if err := a.validateItemInputs(auth.User.ID, req.Items, settings); err != nil {
-		writeError(w, http.StatusBadRequest, err.Error())
-		return
-	}
+ŠH”“ÓHÚ\™\ÈÒT‘HİÛ™\—ÚYOÈS‘™]›ÚÙYØ]LS‘^\™\×Ø]Ø]]•\Ù\‹’QÜ™X]Y
+K”ØØ[Š	˜Xİ]™JB‚ZYˆ\œˆOHš[	‰ˆXİ]™HHÙ][™ÜË“X^Xİ]™TÚ\™\Ô\•\Ù\ˆÂ‚BY\œˆH\œ•^
+›]”Üš[Š¹§ 9i&¹d#9¥í¹o 9d+È	Y9§hyb!¹.ªúdï¹£©H‹Ù][™ÜË“X^Xİ]™TÚ\™\Ô\•\Ù\ŠJB‚_B‚ZYˆ\œˆOHš[Â‚BWË\œˆHK™‹‘^XÊS”ÑT•S•ÈÚ\™\ÊYİÛ™\—ÚYX›X×ÚYÙXÜ™]ØÚ\\‹ÙXÜ™]Û›Û˜ÙK]KÙ\ÜÚ[Û—İ[Y[İ]^\™\×Ø]\Ø[İË\Ù[KY˜][Ø[YÛ‹Ü™X]YØ]™]›ÚÙYØ]
+B‚BBUSQTÊËËËËËËËËËËËË
+XÚ\™RQ]]•\Ù\‹’QX›XÒQÙXÜ™]Ú\\‹ÙXÜ™]›Û˜ÙK™\K•]K™\K”Ù\ÜÚ[Û•[Y[İ]^\™\Ëİš[™Ê[İÒ”ÓÓŠKİš[™Ê[R”ÓÓŠK™\K‘Y˜][[YÛ‹Ü™X]Y
+B‚_B‚Z][RQÈHXZÙJ×\İš[™Ë[Š™\K’][\ÊJB‚ZYˆ\œˆOHš[Â‚BY›ÜˆK][HH˜[™ÙH™\K’][\ÈÂ‚BBZ][RQÈH˜[™ÛRQ
+MŠB‚BBZ][RQÈH\[™
+][RQË][RQ
+B‚BB\^[ØYÈHœÛÛ‹“X\œÚ[
+][T^[ØYĞ›ØÚÜÎˆ][K›ØÚÜßJB‚BBXÚ\\^›Û˜ÙKÜ\Ñ\œˆHK™[˜Ü\^
+š][NˆŠÚ][RQ^[ØY
+B‚BBZYˆÜ\Ñ\œˆOHš[Â‚BBBY\œˆHÜ\Ñ\œ‚‚BBBXœ™XZÂ‚BB_B‚BBWË\œˆHK™‹‘^XÊS”ÑT•S•È][\ÊYÚ\™WÚYÜÚ][Û‹^[ØYØÚ\\‹^[ØYÛ›Û˜ÙKİ]KÜ™X]YØ]
+HSQTÊËËËËË	Ø]˜Z[X›IËÊX‚BBBZ][RQÚ\™RQKÚ\\^›Û˜ÙKÜ™X]Y
+B‚BBZYˆ\œˆOHš[Â‚BBBXœ™XZÂ‚BB_B‚BBY›ÜˆË›ØÚÈH˜[™ÙH][K›ØÚÜÈÂ‚BBBZYˆ›ØÚË\ÜÙ]QOHˆˆÂ‚BBBBXÛÛ[YB‚BBB_B‚BBB\™\İ[\]Q\œˆHK™‹‘^XÊTUH\ÜÙ]ÈÑU][WÚYOÈÒT‘HYOÈS‘İÛ™\—ÚYOÈS‘][WÚYTÈ•S][RQ›ØÚË\ÜÙ]Q]]•\Ù\‹’Q
+B‚BBBZYˆ\]Q\œˆOHš[Â‚BBBBY\œˆH\]Q\œ‚‚BBBBXœ™XZÂ‚BBB_B‚BBBXÚ[™ÙYÈH™\İ[”›İÜĞY™™XİY
 
-	shareID, _ := randomID(16)
-	publicID, _ := randomID(24)
-	secret, _ := randomToken()
-	secretCipher, secretNonce, err := a.encryptText("share-secret:"+shareID, []byte(secret))
-	if err != nil {
-		writeError(w, http.StatusInternalServerError, "æ— æ³•ç”Ÿæˆåˆ†äº«å¯†é’¥")
-		return
-	}
-	allowJSON, _ := json.Marshal(allow)
-	denyJSON, _ := json.Marshal(deny)
-	created := nowUnix()
-	expires := created + int64(req.LinkValidity)
-	a.db.Exec(`BEGIN IMMEDIATE`)
-	var active int
-	err = a.db.QueryRow(`SELECT COUNT(*) FROM shares WHERE owner_id=? AND revoked_at=0 AND expires_at>?`, auth.User.ID, created).Scan(&active)
-	if err == nil && active >= settings.MaxActiveSharesPerUser {
-		err = errText(fmt.Sprintf("æœ€å¤šåŒæ—¶å¼€å¯ %d æ¡åˆ†äº«é“¾æ¥", settings.MaxActiveSharesPerUser))
-	}
-	if err == nil {
-		_, err = a.db.Exec(`INSERT INTO shares(id,owner_id,public_id,secret_cipher,secret_nonce,title,session_timeout,expires_at,ip_allow,ip_deny,default_align,created_at,revoked_at)
-			VALUES(?,?,?,?,?,?,?,?,?,?,?,?,0)`, shareID, auth.User.ID, publicID, secretCipher, secretNonce, req.Title, req.SessionTimeout, expires, string(allowJSON), string(denyJSON), req.DefaultAlign, created)
-	}
-	itemIDs := make([]string, 0, len(req.Items))
-	if err == nil {
-		for i, item := range req.Items {
-			itemID, _ := randomID(16)
-			itemIDs = append(itemIDs, itemID)
-			payload, _ := json.Marshal(ItemPayload{Blocks: item.Blocks})
-			ciphertext, nonce, cryptoErr := a.encryptText("item:"+itemID, payload)
-			if cryptoErr != nil {
-				err = cryptoErr
-				break
-			}
-			_, err = a.db.Exec(`INSERT INTO items(id,share_id,position,payload_cipher,payload_nonce,state,created_at) VALUES(?,?,?,?,?,'available',?)`,
-				itemID, shareID, i, ciphertext, nonce, created)
-			if err != nil {
-				break
-			}
-			for _, block := range item.Blocks {
-				if block.AssetID == "" {
-					continue
-				}
-				result, updateErr := a.db.Exec(`UPDATE assets SET item_id=? WHERE id=? AND owner_id=? AND item_id IS NULL`, itemID, block.AssetID, auth.User.ID)
-				if updateErr != nil {
-					err = updateErr
-					break
-				}
-				changed, _ := result.RowsAffected()
-				if changed != 1 {
-					err = errors.New("é™„ä»¶ä¸å­˜åœ¨æˆ–å·²è¢«ä½¿ç”¨")
-					break
-				}
-			}
-			if err != nil {
-				break
-			}
-		}
-	}
-	if err == nil {
-		_, err = a.db.Exec(`COMMIT`)
-	} else {
-		a.db.Exec(`ROLLBACK`)
-	}
-	if err != nil {
-		writeError(w, http.StatusBadRequest, err.Error())
-		return
-	}
-	base := a.cfg.PublicBaseURL
-	if base == "" {
-		base = requestBaseURL(r)
-	}
-	share := Share{ID: shareID, OwnerID: auth.User.ID, PublicID: publicID, Title: req.Title,
-		SessionTimeout: req.SessionTimeout, ExpiresAt: expires, IPAllow: allow, IPDeny: deny,
-		DefaultAlign: req.DefaultAlign, CreatedAt: created, PublicLink: base + "/s/" + publicID + "#k=" + secret,
-		ItemCount: len(itemIDs), AvailableCount: len(itemIDs)}
-	writeJSON(w, http.StatusCreated, map[string]any{"share": share})
-}
+B‚BBBZYˆÚ[™ÙYOHHÂ‚BBBBY\œˆH\œ›ÜœË“™]Êºfa9.í¹.#ykf9g*9¢%¹mìº(ªù/oùå*ŠB‚BBBBXœ™XZÂ‚BBB_B‚BB_B‚BBZYˆ\œˆOHš[Â‚BBBXœ™XZÂ‚BB_B‚B_B‚_B‚ZYˆ\œˆOHš[Â‚BWË\œˆHK™‹‘^XÊÓÓSRU
+B‚_H[ÙHÂ‚BXK™‹‘^XÊ“ÓPÒØ
+B‚_B‚ZYˆ\œˆOHš[Â‚B]Üš]Q\œ›ÜŠË”İ]\Ğ˜Y™\]Y\İ\œ‹‘\œ›ÜŠ
+JB‚B\™]\›‚‚_B‚X˜\ÙHHK˜Ù™Ë”X›XĞ˜\ÙUT“‚ZYˆ˜\ÙHOHˆˆÂ‚BX˜\ÙHH™\]Y\İ˜\ÙUT“
+ŠB‚_B‚\Ú\™HHÚ\™^ÒQˆÚ\™RQİÛ™\’Qˆ]]•\Ù\‹’QX›XÒQˆX›XÒQ]Nˆ™\K•]K‚BTÙ\ÜÚ[Û•[Y[İ]ˆ™\K”Ù\ÜÚ[Û•[Y[İ]^\™\Ğ]ˆ^\™\ËT[İÎˆ[İËT[Nˆ[K‚BQY˜][[YÛˆ™\K‘Y˜][[YÛ‹Ü™X]Y]ˆÜ™X]YX›XÓ[šÎˆ˜\ÙH
+È‹ÜËÈˆ
+ÈX›XÒQ
+ÈˆÚÏHˆ
+ÈÙXÜ™]‚BR][PÛİ[ˆ[Š][RQÊK]˜Z[X›PÛİ[ˆ[Š][RQÊ_B‚]Üš]R”ÓÓŠË”İ]\ĞÜ™X]YX\Üİš[™×X[^ÈœÚ\™HˆÚ\™_JBŸB‚™[˜È
+H
+\
+H˜[Y]R][R[œ]ÊİÛ™\’Qİš[™Ë][\È×R][R[œ]Ù][™ÜÈÙ][™ÜÊH\œ›ÜˆÂ‚\ÙY[\ÜÙ]ÈHXZÙJX\Üİš[™×X›ÛÛ
+B‚Y›Üˆ[™^][HH˜[™ÙH][\ÈÂ‚BZYˆ[Š][K›ØÚÜÊHH[Š][K›ØÚÜÊHˆÙ][™ÜË“X^ÛÛ[[œÈÂ‚BB\™]\›ˆ\œ•^
+›]”Üš[Š¹ë+	Y9.ïya¡yk®yoázhnùc!yd*ÈH9b,	Y9.*¹geÈ‹[™^
+ÌKÙ][™ÜË“X^ÛÛ[[œÊJB‚B_B‚B]İ[^H‚BY›ÜˆË›ØÚÈH˜[™ÙH][K›ØÚÜÈÂ‚BB\İÚ]Ú›ØÚË•\HÂ‚BBXØ\ÙH›X\šÙİÛˆ‚‚BBBZYˆ›ØÚË•^OHˆˆÂ‚BBBB\™]\›ˆ\œ•^
+›]”Üš[Š¹ë+	Y9.ïya¡yk®yc!yd*ùên¹¥¡ù§+9geÈ‹[™^
+ÌJJB‚BBB_B‚BBB]İ[^
+ÏH[Š×X]J›ØÚË•^
+JB‚BBBZYˆ›ØÚË[YÛˆOHˆˆ	‰ˆ›ØÚË[YÛˆOH›Yˆ	‰ˆ›ØÚË[YÛˆOH˜Ù[\ˆˆ	‰ˆ›ØÚË[YÛˆOHœšYÚˆÂ‚BBBB\™]\›ˆ\œ•^
+¹¥¡ù§+9kîzod9¥®yo#ù¥è9¥bŠB‚BBB_B‚BBXØ\ÙHš[XYÙH‹™š[H‚‚BBBZYˆ›ØÚË\ÜÙ]QOHˆˆÂ‚BBBB\™]\›ˆ\œ•^
+¹fï¹âaù¢%¹¥¡ù.í¹geùï.¹l$zfa9.íˆŠB‚BBB_B‚BBBZYˆÙY[\ÜÙ]ÖØ›ØÚË\ÜÙ]QHÂ‚BBBB\™]\›ˆ\œ•^
+¹d#9. 9.*ºfa9.í¹.#z ïzaãyi#y/oùå*ŠB‚BBB_B‚BBB\ÙY[\ÜÙ]ÖØ›ØÚË\ÜÙ]QHHYB‚BBB]˜\ˆİÛ™\ˆÜ[“[İš[™Â‚BBBY\œˆHK™‹”]Y\T›İÊÑSPÕİÛ™\—ÚY”“ÓH\ÜÙ]ÈÒT‘HYOÈS‘][WÚYTÈ•S›ØÚË\ÜÙ]Q
+K”ØØ[Š	›İÛ™\ŠB‚BBBZYˆ\œˆOHš[İÛ™\‹”İš[™ÈOHİÛ™\’QÂ‚BBBB\™]\›ˆ\œ•^
+ºfa9.í¹.#ykf9g*8à ymì¹/oùå*9¢%¹.#ylg¹.£¹odùbcyå*9¢-ÈŠB‚BBB_B‚BBYY˜][‚‚BBB\™]\›ˆ\œ•^
+¹a¡yk®ygeùìnùg¢ù¥è9¥bŠB‚BB_B‚B_B‚BZYˆİ[^ˆÙ][™ÜË“X^^]\ÈÂ‚BB\™]\›ˆ\œ•^
+›]”Üš[Š¹ë+	Y9.ïy¥¡ù§+:-¡z/áùa`z+®9i)ùl#È‹[™^
+ÌJJB‚B_B‚_B‚\™]\›ˆš[ŸB‚™[˜È›Ü›X[^™PÒQœÊ˜[Y\È×\İš[™ÊH
+×\İš[™Ë\œ›ÜŠHÂ‚\Ù]HXZÙJX\Üİš[™×X›ÛÛ
+B‚\™\İ[HXZÙJ×\İš[™Ë[Š˜[Y\ÊJB‚Y›ÜˆË˜]ÈH˜[™ÙH˜[Y\ÈÂ‚B\˜]ÈHİš[™ÜË•š[TÜXÙJ˜]ÊB‚BZYˆ˜]ÈOHˆˆÂ‚BBXÛÛ[YB‚B_B‚BZYˆ\İš[™ÜËÛÛZ[œÊ˜]Ë‹ÈŠHÂ‚BBZ\H™]”\œÙRT
+˜]ÊB‚BBZYˆ\OHš[Â‚BBB\™]\›ˆš[›]‘\œ›Ü™Š‰\È‹˜]ÊB‚BB_B‚BBZYˆ\•Í
 
-func (a *App) validateItemInputs(ownerID string, items []ItemInput, settings Settings) error {
-	seenAssets := make(map[string]bool)
-	for index, item := range items {
-		if len(item.Blocks) < 1 || len(item.Blocks) > settings.MaxColumns {
-			return errText(fmt.Sprintf("ç¬¬ %d ä»½å†…å®¹å¿…é¡»åŒ…å« 1 åˆ° %d ä¸ªå—", index+1, settings.MaxColumns))
-		}
-		totalText := 0
-		for _, block := range item.Blocks {
-			switch block.Type {
-			case "markdown":
-				if block.Text == "" {
-					return errText(fmt.Sprintf("ç¬¬ %d ä»½å†…å®¹åŒ…å«ç©ºæ–‡æœ¬å—", index+1))
-				}
-				totalText += len([]byte(block.Text))
-				if block.Align != "" && block.Align != "left" && block.Align != "center" && block.Align != "right" {
-					return errText("æ–‡æœ¬å¯¹é½æ–¹å¼æ— æ•ˆ")
-				}
-			case "image", "file":
-				if block.AssetID == "" {
-					return errText("å›¾ç‰‡æˆ–æ–‡ä»¶å—ç¼ºå°‘é™„ä»¶")
-				}
-				if seenAssets[block.AssetID] {
-					return errText("åŒä¸€ä¸ªé™„ä»¶ä¸èƒ½é‡å¤ä½¿ç”¨")
-				}
-				seenAssets[block.AssetID] = true
-				var owner sql.NullString
-				err := a.db.QueryRow(`SELECT owner_id FROM assets WHERE id=? AND item_id IS NULL`, block.AssetID).Scan(&owner)
-				if err != nil || owner.String != ownerID {
-					return errText("é™„ä»¶ä¸å­˜åœ¨ã€å·²ä½¿ç”¨æˆ–ä¸å±äºå½“å‰ç”¨æˆ·")
-				}
-			default:
-				return errText("å†…å®¹å—ç±»å‹æ— æ•ˆ")
-			}
-		}
-		if totalText > settings.MaxTextBytes {
-			return errText(fmt.Sprintf("ç¬¬ %d ä»½æ–‡æœ¬è¶…è¿‡å…è®¸å¤§å°", index+1))
-		}
-	}
-	return nil
-}
+HOHš[Â‚BBB\˜]È
+ÏH‹ÌÌˆ‚‚BB_H[ÙHÂ‚BBB\˜]È
+ÏH‹ÌL‚‚BB_B‚B_B‚BWË›ØÚË\œˆH™]”\œÙPÒQŠ˜]ÊB‚BZYˆ\œˆOHš[Â‚BB\™]\›ˆš[›]‘\œ›Ü™Š‰\È‹˜]ÊB‚B_B‚B[›Ü›X[^™YH›ØÚË”İš[™Ê
+B‚BZYˆ\Ù]Û›Ü›X[^™YHÂ‚BB\Ù]Û›Ü›X[^™YHHYB‚BB\™\İ[H\[™
+™\İ[›Ü›X[^™Y
+B‚B_B‚_B‚\ÛÜ”İš[™ÜÊ™\İ[
+B‚\™]\›ˆ™\İ[š[ŸB‚™[˜È
+H
+\
+H[™S\İÚ\™\ÊÈ”™\ÜÛœÙUÜš]\‹ˆ
+š”™\]Y\İ
+HÂ‚X]]\œˆHKœ™\]Z\™U\Ù\ŠŠB‚ZYˆ\œˆOHš[Â‚B]Üš]Q\œ›ÜŠË”İ]\Õ[˜]]Üš^™Y\œ‹‘\œ›ÜŠ
+JB‚B\™]\›‚‚_B‚\]Y\HHÑSPÕËšYË›İÛ™\—ÚYK\Ù\›˜[YKËœX›X×ÚYË]KËœÙ\ÜÚ[Û—İ[Y[İ]Ë™^\™\×Ø]Ëš\Ø[İËËš\Ù[KË™Y˜][Ø[YÛ‹Ë˜Ü™X]YØ]Ëœ™]›ÚÙYØ]‚BPÓÕS•
+KšY
+KÕSJĞTÑHÒSˆKœİ]OIØ]˜Z[X›IÈSˆHSÑHS‘
+KÕSJĞTÑHÒSˆKœİ]HOIØ]˜Z[X›IÈSˆHSÑHS‘
+B‚BQ”“ÓHÚ\™\ÈÈ“ÒSˆ\Ù\œÈHÓˆKšY\Ë›İÛ™\—ÚYQ•“ÒSˆ][\ÈHÓˆKœÚ\™WÚY\ËšY‚X\™ÜÈH×X[^ßB‚ZYˆ]]•\Ù\‹”›ÛHOH˜YZ[ˆˆÂ‚B\]Y\H
+ÏHÒT‘HË›İÛ™\—ÚYOØ‚BX\™ÜÈH\[™
+\™ÜË]]•\Ù\‹’Q
+B‚_B‚\]Y\H
+ÏHÔ“ÕT–HËšYÔ‘Tˆ–HË˜Ü™X]YØ]TĞØ‚\›İÜË\œˆHK™‹”]Y\J]Y\K\™ÜË‹‹ŠB‚ZYˆ\œˆOHš[Â‚B]Üš]Q\œ›ÜŠË”İ]\Ò[\›˜[Ù\™\‘\œ›Ü‹¹¥è9¬åz+îùcå¹b!¹.ªÈŠB‚B\™]\›‚‚_B‚YY™\ˆ›İÜËÛÜÙJ
+B‚\Ú\™\ÈHXZÙJ×TÚ\™K
+B‚Y›Üˆ›İÜË“™^
 
-func normalizeCIDRs(values []string) ([]string, error) {
-	set := make(map[string]bool)
-	result := make([]string, 0, len(values))
-	for _, raw := range values {
-		raw = strings.TrimSpace(raw)
-		if raw == "" {
-			continue
-		}
-		if !strings.Contains(raw, "/") {
-			ip := net.ParseIP(raw)
-			if ip == nil {
-				return nil, fmt.Errorf("%s", raw)
-			}
-			if ip.To4() != nil {
-				raw += "/32"
-			} else {
-				raw += "/128"
-			}
-		}
-		_, block, err := net.ParseCIDR(raw)
-		if err != nil {
-			return nil, fmt.Errorf("%s", raw)
-		}
-		normalized := block.String()
-		if !set[normalized] {
-			set[normalized] = true
-			result = append(result, normalized)
-		}
-	}
-	sort.Strings(result)
-	return result, nil
-}
+HÂ‚B\Ë\œˆHKœØØ[”Ú\™J›İÜÊB‚BZYˆ\œˆOHš[Â‚BB\Ú\™\ÈH\[™
+Ú\™\ËÊB‚B_B‚_B‚ZYˆ\œˆH›İÜË‘\œŠ
+NÈ\œˆOHš[Â‚B]Üš]Q\œ›ÜŠË”İ]\Ò[\›˜[Ù\™\‘\œ›Ü‹¹¥è9¬åz+îùcå¹b!¹.ªÈŠB‚B\™]\›‚‚_B‚KËÈHÔS]HÛÛ[[[Û˜[H\Ù\ÈÛ™HÛÛ›™Xİ[Û‹ˆÛÜÙHH™\İ[Ù]‚KËÈ™Y›Ü™HÚ\™S[šÈ\™›Ü›\È]ÈÛÚİ\İ\Ú\ÙHHÛÈ]Y\šY\ÈXYØÚË‚‚\›İÜËÛÜÙJ
+B‚Y›ÜˆHH˜[™ÙHÚ\™\ÈÂ‚BZYˆ[šË[šÑ\œˆHKœÚ\™S[šÊÚ\™\ÖÚWK™\]Y\İ˜\ÙUT“
+ŠJNÈ[šÑ\œˆOHš[Â‚BB\Ú\™\ÖÚWK”X›XÓ[šÈH[šÂ‚B_B‚_B‚]Üš]R”ÓÓŠË”İ]\ÓÒËX\Üİš[™×X[^ÈœÚ\™\ÈˆÚ\™\ßJBŸB‚™[˜È
+H
+\
+H[™QÙ]Ú\™JÈ”™\ÜÛœÙUÜš]\‹ˆ
+š”™\]Y\İ
+HÂ‚X]]\œˆHKœ™\]Z\™U\Ù\ŠŠB‚ZYˆ\œˆOHš[Â‚B]Üš]Q\œ›ÜŠË”İ]\Õ[˜]]Üš^™Y\œ‹‘\œ›ÜŠ
+JB‚B\™]\›‚‚_B‚\Ú\™K\œˆHKœÚ\™PRQ
+‹‹”]˜[YJšYŠJB‚ZYˆ\œˆOHš[
+Ú\™K“İÛ™\’QOH]]•\Ù\‹’Q	‰ˆ]]•\Ù\‹”›ÛHOH˜YZ[ˆŠHÂ‚B]Üš]Q\œ›ÜŠË”İ]\Ó›İ›İ[™¹b!¹.ªù.#ykf9g*ŠB‚B\™]\›‚‚_B‚[[šËÈHKœÚ\™S[šÊÚ\™K™\]Y\İ˜\ÙUT“
+ŠJB‚\Ú\™K”X›XÓ[šÈH[šÂ‚\›İÜË\œˆHK™‹”]Y\JÑSPÕY^[ØYØÚ\\‹^[ØYÛ›Û˜ÙKİ]H”“ÓH][\ÈÒT‘HÚ\™WÚYOÈÔ‘Tˆ–HÜÚ][Û˜Ú\™K’Q
+B‚ZYˆ\œˆOHš[Â‚B]Üš]Q\œ›ÜŠË”İ]\Ò[\›˜[Ù\™\‘\œ›Ü‹¹¥è9¬åz+îùcå¹b!¹.ªùa¡yk®HŠB‚B\™]\›‚‚_B‚YY™\ˆ›İÜËÛÜÙJ
+B‚Z][\ÈHXZÙJ×[X\Üİš[™×X[K
+B‚Y›Üˆ›İÜË“™^
 
-func (a *App) handleListShares(w http.ResponseWriter, r *http.Request) {
-	auth, err := a.requireUser(r)
-	if err != nil {
-		writeError(w, http.StatusUnauthorized, err.Error())
-		return
-	}
-	query := `SELECT s.id,s.owner_id,u.username,s.public_id,s.title,s.session_timeout,s.expires_at,s.ip_allow,s.ip_deny,s.default_align,s.created_at,s.revoked_at,
-		COUNT(i.id), SUM(CASE WHEN i.state='available' THEN 1 ELSE 0 END), SUM(CASE WHEN i.state!='available' THEN 1 ELSE 0 END)
-		FROM shares s JOIN users u ON u.id=s.owner_id LEFT JOIN items i ON i.share_id=s.id`
-	args := []any{}
-	if auth.User.Role != "admin" {
-		query += ` WHERE s.owner_id=?`
-		args = append(args, auth.User.ID)
-	}
-	query += ` GROUP BY s.id ORDER BY s.created_at DESC`
-	rows, err := a.db.Query(query, args...)
-	if err != nil {
-		writeError(w, http.StatusInternalServerError, "æ— æ³•è¯»å–åˆ†äº«")
-		return
-	}
-	defer rows.Close()
-	shares := make([]Share, 0)
-	for rows.Next() {
-		s, err := a.scanShare(rows)
-		if err == nil {
-			if link, linkErr := a.shareLink(s, requestBaseURL(r)); linkErr == nil {
-				s.PublicLink = link
-			}
-			shares = append(shares, s)
-		}
-	}
-	writeJSON(w, http.StatusOK, map[string]any{"shares": shares})
-}
+HÂ‚B]˜\ˆYİ]Hİš[™Â‚B]˜\ˆÚ\\‹›Û˜ÙH×X]B‚BZYˆ›İÜË”ØØ[Š	šY	˜Ú\\‹	››Û˜ÙK	œİ]JHOHš[Â‚BBXÛÛ[YB‚B_B‚BY[HHX\Üİš[™×X[^ÈšYˆYœİ]Hˆİ]_B‚BZYˆİ]HOH™\İ›ŞYYˆÂ‚BB\Z[‹XÜ\\œˆHK™XÜ\^
+š][NˆŠÚYÚ\\‹›Û˜ÙJB‚BBZYˆXÜ\\œˆOHš[Â‚BBB]˜\ˆ^[ØY][T^[ØY‚BBBZYˆœÛÛ‹•[›X\œÚ[
+Z[‹	œ^[ØY
+HOHš[Â‚BBBBY[VÈ˜›ØÚÜÈ—HH^[ØY›ØÚÜÂ‚BBB_B‚BB_B‚B_B‚BZ][\ÈH\[™
+][\Ë[JB‚_B‚]Üš]R”ÓÓŠË”İ]\ÓÒËX\Üİš[™×X[^ÈœÚ\™HˆÚ\™Kš][\Èˆ][\ßJBŸB‚™[˜È
+H
+\
+H[™Q[]TÚ\™JÈ”™\ÜÛœÙUÜš]\‹ˆ
+š”™\]Y\İ
+HÂ‚ZYˆ\Ø[YSÜšYÚ[ŠŠHÂ‚B]Üš]Q\œ›ÜŠË”İ]\Ñ›Ü˜šY[‹º+íù¬`¹§iy®¤9¥è9¥bŠB‚B\™]\›‚‚_B‚X]]\œˆHKœ™\]Z\™U\Ù\ŠŠB‚ZYˆ\œˆOHš[Â‚B]Üš]Q\œ›ÜŠË”İ]\Õ[˜]]Üš^™Y\œ‹‘\œ›ÜŠ
+JB‚B\™]\›‚‚_B‚\Ú\™K\œˆHKœÚ\™PRQ
+‹‹”]˜[YJšYŠJB‚ZYˆ\œˆOHš[
+Ú\™K“İÛ™\’QOH]]•\Ù\‹’Q	‰ˆ]]•\Ù\‹”›ÛHOH˜YZ[ˆŠHÂ‚B]Üš]Q\œ›ÜŠË”İ]\Ó›İ›İ[™¹b!¹.ªù.#ykf9g*ŠB‚B\™]\›‚‚_B‚ZYˆ\œˆHK™\İ›ŞTÚ\™R][\ÊÚ\™K’Q
+NÈ\œˆOHš[Â‚B]Üš]Q\œ›ÜŠË”İ]\Ò[\›˜[Ù\™\‘\œ›Ü‹¹¥è9¬åze 9«àyb!¹.ªùa¡yk®HŠB‚B\™]\›‚‚_B‚WËÈHK™‹‘^XÊTUHÚ\™\ÈÑU™]›ÚÙYØ]OÈÒT‘HYOØ›İÕ[š^
 
-func (a *App) handleGetShare(w http.ResponseWriter, r *http.Request) {
-	auth, err := a.requireUser(r)
-	if err != nil {
-		writeError(w, http.StatusUnauthorized, err.Error())
-		return
-	}
-	share, err := a.shareByID(r, r.PathValue("id"))
-	if err != nil || (share.OwnerID != auth.User.ID && auth.User.Role != "admin") {
-		writeError(w, http.StatusNotFound, "åˆ†äº«ä¸å­˜åœ¨")
-		return
-	}
-	link, _ := a.shareLink(share, requestBaseURL(r))
-	share.PublicLink = link
-	rows, err := a.db.Query(`SELECT id,payload_cipher,payload_nonce,state FROM items WHERE share_id=? ORDER BY position`, share.ID)
-	if err != nil {
-		writeError(w, http.StatusInternalServerError, "æ— æ³•è¯»å–åˆ†äº«å†…å®¹")
-		return
-	}
-	defer rows.Close()
-	items := make([]map[string]any, 0)
-	for rows.Next() {
-		var id, state string
-		var cipher, nonce []byte
-		if rows.Scan(&id, &cipher, &nonce, &state) != nil {
-			continue
-		}
-		entry := map[string]any{"id": id, "state": state}
-		if state != "destroyed" {
-			plain, decryptErr := a.decryptText("item:"+id, cipher, nonce)
-			if decryptErr == nil {
-				var payload ItemPayload
-				if json.Unmarshal(plain, &payload) == nil {
-					entry["blocks"] = payload.Blocks
-				}
-			}
-		}
-		items = append(items, entry)
-	}
-	writeJSON(w, http.StatusOK, map[string]any{"share": share, "items": items})
-}
+KÚ\™K’Q
+B‚]Üš]R”ÓÓŠË”İ]\ÓÒËX\Üİš[™×X›ÛÛÈ›ÚÈˆY_JBŸB‚™[˜È
+H
+\
+HÚ\™PRQ
+ˆ
+š”™\]Y\İYİš[™ÊH
+Ú\™K\œ›ÜŠHÂ‚\›İÈHK™‹”]Y\T›İÊÑSPÕËšYË›İÛ™\—ÚYK\Ù\›˜[YKËœX›X×ÚYË]KËœÙ\ÜÚ[Û—İ[Y[İ]Ë™^\™\×Ø]Ëš\Ø[İËËš\Ù[KË™Y˜][Ø[YÛ‹Ë˜Ü™X]YØ]Ëœ™]›ÚÙYØ]‚BJÑSPÕÓÕS•
 
-func (a *App) handleDeleteShare(w http.ResponseWriter, r *http.Request) {
-	if !sameOrigin(r) {
-		writeError(w, http.StatusForbidden, "è¯·æ±‚æ¥æºæ— æ•ˆ")
-		return
-	}
-	auth, err := a.requireUser(r)
-	if err != nil {
-		writeError(w, http.StatusUnauthorized, err.Error())
-		return
-	}
-	share, err := a.shareByID(r, r.PathValue("id"))
-	if err != nil || (share.OwnerID != auth.User.ID && auth.User.Role != "admin") {
-		writeError(w, http.StatusNotFound, "åˆ†äº«ä¸å­˜åœ¨")
-		return
-	}
-	if err := a.destroyShareItems(share.ID); err != nil {
-		writeError(w, http.StatusInternalServerError, "æ— æ³•é”€æ¯åˆ†äº«å†…å®¹")
-		return
-	}
-	_, _ = a.db.Exec(`UPDATE shares SET revoked_at=? WHERE id=?`, nowUnix(), share.ID)
-	writeJSON(w, http.StatusOK, map[string]bool{"ok": true})
-}
+ŠH”“ÓH][\ÈÒT‘HÚ\™WÚY\ËšY
+K‚BJÑSPÕÓÕS•
 
-func (a *App) shareByID(r *http.Request, id string) (Share, error) {
-	row := a.db.QueryRow(`SELECT s.id,s.owner_id,u.username,s.public_id,s.title,s.session_timeout,s.expires_at,s.ip_allow,s.ip_deny,s.default_align,s.created_at,s.revoked_at,
-		(SELECT COUNT(*) FROM items WHERE share_id=s.id),
-		(SELECT COUNT(*) FROM items WHERE share_id=s.id AND state='available'),
-		(SELECT COUNT(*) FROM items WHERE share_id=s.id AND state!='available')
-		FROM shares s JOIN users u ON u.id=s.owner_id WHERE s.id=?`, id)
-	return a.scanShare(row)
-}
+ŠH”“ÓH][\ÈÒT‘HÚ\™WÚY\ËšYS‘İ]OIØ]˜Z[X›IÊK‚BJÑSPÕÓÕS•
 
-type rowScanner interface{ Scan(...any) error }
+ŠH”“ÓH][\ÈÒT‘HÚ\™WÚY\ËšYS‘İ]HOIØ]˜Z[X›IÊB‚BQ”“ÓHÚ\™\ÈÈ“ÒSˆ\Ù\œÈHÓˆKšY\Ë›İÛ™\—ÚYÒT‘HËšYOØY
+B‚\™]\›ˆKœØØ[”Ú\™J›İÊBŸB‚\H›İÔØØ[›™\ˆ[\™˜XÙ^ÈØØ[Š‹‹˜[JH\œ›ÜˆB‚™[˜È
+H
+\
+HØØ[”Ú\™JØØ[›™\ˆ›İÔØØ[›™\ŠH
+Ú\™K\œ›ÜŠHÂ‚]˜\ˆÈÚ\™B‚]˜\ˆ[İÔ˜]Ë[T˜]Èİš[™Â‚]˜\ˆ™]›ÚÙY[‚Y\œˆHØØ[›™\‹”ØØ[Š	œË’Q	œË“İÛ™\’Q	œË“İÛ™\“˜[YK	œË”X›XÒQ	œË•]K	œË”Ù\ÜÚ[Û•[Y[İ]	œË‘^\™\Ğ]	˜[İÔ˜]Ë	™[T˜]Ë	œË‘Y˜][[YÛ‹	œËÜ™X]Y]	œ™]›ÚÙY	œË’][PÛİ[	œË]˜Z[X›PÛİ[	œËÛÛœİ[YYÛİ[
+B‚ZYˆ\œˆOHš[Â‚B\™]\›ˆÚ\™^ßK\œ‚‚_B‚\Ë”™]›ÚÙY]H™]›ÚÙY‚WÈHœÛÛ‹•[›X\œÚ[
+×X]J[İÔ˜]ÊK	œË’T[İÊB‚WÈHœÛÛ‹•[›X\œÚ[
+×X]J[T˜]ÊK	œË’T[JB‚\™]\›ˆËš[ŸB‚™[˜È
+H
+\
+HÚ\™S[šÊÚ\™HÚ\™K˜[˜XÚĞ˜\ÙHİš[™ÊH
+İš[™Ë\œ›ÜŠHÂ‚]˜\ˆÚ\\‹›Û˜ÙH×X]B‚ZYˆ\œˆHK™‹”]Y\T›İÊÑSPÕÙXÜ™]ØÚ\\‹ÙXÜ™]Û›Û˜ÙH”“ÓHÚ\™\ÈÒT‘HYOØÚ\™K’Q
+K”ØØ[Š	˜Ú\\‹	››Û˜ÙJNÈ\œˆOHš[Â‚B\™]\›ˆˆ‹\œ‚‚_B‚\Z[‹\œˆHK™XÜ\^
+œÚ\™K\ÙXÜ™]ˆŠÜÚ\™K’QÚ\\‹›Û˜ÙJB‚ZYˆ\œˆOHš[Â‚B\™]\›ˆˆ‹\œ‚‚_B‚X˜\ÙHHK˜Ù™Ë”X›XĞ˜\ÙUT“‚ZYˆ˜\ÙHOHˆˆÂ‚BX˜\ÙHHİš[™ÜË•š[TšYÚ
+˜[˜XÚĞ˜\ÙK‹ÈŠB‚_B‚\™]\›ˆ˜\ÙH
+È‹ÜËÈˆ
+ÈÚ\™K”X›XÒQ
+ÈˆÚÏHˆ
+Èİš[™ÊZ[ŠKš[ŸB‚™[˜È™\]Y\İ˜\ÙUT“
+ˆ
+š”™\]Y\İ
+Hİš[™ÈÂ‚\ØÚ[YHHš‚‚ZYˆ™\]Y\İ\ÒÊŠHÂ‚B\ØÚ[YHHšÈ‚‚_B‚\™]\›ˆØÚ[YH
+È‹ËÈˆ
+È‹’ÜİŸB‚™[˜ÈÛÛœİ[\]X[
+Kˆİš[™ÊH›ÛÛÂ‚\™]\›ˆİXKÛÛœİ[[YPÛÛ\\™J×X]JJK×X]JŠJHOHBŸB‚™[˜È
+H
+\
+H\İ›ŞTÚ\™R][\ÊÚ\™RQİš[™ÊH\œ›ÜˆÂ‚\›İÜË\œˆHK™‹”]Y\JÑSPÕKšYKœİÜ˜YÙWÚÙ^H”“ÓH\ÜÙ]ÈH“ÒSˆ][\ÈHÓˆKšYXKš][WÚYÒT‘HKœÚ\™WÚYOØÚ\™RQ
+B‚ZYˆ\œˆOHš[Â‚B\™]\›ˆ\œ‚‚_B‚]\HİÜ™YİXİÈYÙ^Hİš[™ÈB‚]˜\ˆš[\È×\İÜ™Y‚Y›Üˆ›İÜË“™^
 
-func (a *App) scanShare(scanner rowScanner) (Share, error) {
-	var s Share
-	var allowRaw, denyRaw string
-	var revoked int64
-	err := scanner.Scan(&s.ID, &s.OwnerID, &s.OwnerName, &s.PublicID, &s.Title, &s.SessionTimeout, &s.ExpiresAt, &allowRaw, &denyRaw, &s.DefaultAlign, &s.CreatedAt, &revoked, &s.ItemCount, &s.AvailableCount, &s.ConsumedCount)
-	if err != nil {
-		return Share{}, err
-	}
-	s.RevokedAt = revoked
-	_ = json.Unmarshal([]byte(allowRaw), &s.IPAllow)
-	_ = json.Unmarshal([]byte(denyRaw), &s.IPDeny)
-	return s, nil
-}
+HÂ‚B]˜\ˆˆİÜ™Y‚BZYˆ›İÜË”ØØ[Š	‹šY	‹šÙ^JHOHš[Â‚BBYš[\ÈH\[™
+š[\ËŠB‚B_B‚_B‚\›İÜËÛÜÙJ
+B‚Y›ÜˆËˆH˜[™ÙHš[\ÈÂ‚BWÈH™[[İ™Qš[Jš[\]’›Ú[ŠK˜Ù™Ë‘]Q\‹˜›ØœÈ‹‹šÙ^JJB‚BWËÈHK™‹‘^XÊSUH”“ÓH\ÜÙ]ÈÒT‘HYOØ‹šY
+B‚_B‚XÛZ[\ËÈHK™‹”]Y\JÑSPÕY”“ÓHÛZ[\ÈÒT‘HÚ\™WÚYOÈS‘İ]HOIÙ\İ›ŞYY	ØÚ\™RQ
+B‚ZYˆÛZ[\ÈOHš[Â‚B]˜\ˆYÈ×\İš[™Â‚BY›ÜˆÛZ[\Ë“™^
 
-func (a *App) shareLink(share Share, fallbackBase string) (string, error) {
-	var cipher, nonce []byte
-	if err := a.db.QueryRow(`SELECT secret_cipher,secret_nonce FROM shares WHERE id=?`, share.ID).Scan(&cipher, &nonce); err != nil {
-		return "", err
-	}
-	plain, err := a.decryptText("share-secret:"+share.ID, cipher, nonce)
-	if err != nil {
-		return "", err
-	}
-	base := a.cfg.PublicBaseURL
-	if base == "" {
-		base = strings.TrimRight(fallbackBase, "/")
-	}
-	return base + "/s/" + share.PublicID + "#k=" + string(plain), nil
-}
+HÂ‚BB]˜\ˆYİš[™Â‚BBZYˆÛZ[\Ë”ØØ[Š	šY
+HOHš[Â‚BBBZYÈH\[™
+YËY
+B‚BB_B‚B_B‚BXÛZ[\ËÛÜÙJ
+B‚BY›ÜˆËYH˜[™ÙHYÈÂ‚BBXKšX‹˜ÛÜÙPÛZ[JY
+B‚B_B‚_B‚WË\œˆHK™‹‘^XÊTUHÛZ[\ÈÑUİ]OIÙ\İ›ŞYY	Ë\İ›ŞYYØ]OÈÒT‘HÚ\™WÚYOÈS‘İ]HOIÙ\İ›ŞYY	Ø›İÕ[š^
 
-func requestBaseURL(r *http.Request) string {
-	scheme := "http"
-	if requestIsHTTPS(r) {
-		scheme = "https"
-	}
-	return scheme + "://" + r.Host
-}
+KÚ\™RQ
+B‚ZYˆ\œˆOHš[Â‚B\™]\›ˆ\œ‚‚_B‚WË\œˆHK™‹‘^XÊTUH][\ÈÑUİ]OIÙ\İ›ŞYY	Ë^[ØYØÚ\\^™\›Ø›ØŠJK^[ØYÛ›Û˜ÙO^™\›Ø›ØŠJHÒT‘HÚ\™WÚYOØÚ\™RQ
+B‚\™]\›ˆ\œ‚ŸB‚™[˜È
+H
+\
+H\İ›ŞPÛZ[JÛZ[RQ™X\ÛÛˆİš[™ÊH\œ›ÜˆÂ‚]˜\ˆ][RQİš[™Â‚Y\œˆHK™‹”]Y\T›İÊÑSPÕ][WÚY”“ÓHÛZ[\ÈÒT‘HYOÈS‘İ]HOIÙ\İ›ŞYY	ØÛZ[RQ
+K”ØØ[Š	š][RQ
+B‚ZYˆ\œ›ÜœË’\Ê\œ‹Ü[‘\œ“›Ô›İÜÊHÂ‚B\™]\›ˆš[‚_B‚ZYˆ\œˆOHš[Â‚B\™]\›ˆ\œ‚‚_B‚\›İÜË\œˆHK™‹”]Y\JÑSPÕYİÜ˜YÙWÚÙ^H”“ÓH\ÜÙ]ÈÒT‘H][WÚYOØ][RQ
+B‚ZYˆ\œˆOHš[Â‚B\™]\›ˆ\œ‚‚_B‚]\HİÜ™YİXİÈYÙ^Hİš[™ÈB‚]˜\ˆš[\È×\İÜ™Y‚Y›Üˆ›İÜË“™^
 
-func constantEqual(a, b string) bool {
-	return subtle.ConstantTimeCompare([]byte(a), []byte(b)) == 1
-}
+HÂ‚B]˜\ˆˆİÜ™Y‚BZYˆ›İÜË”ØØ[Š	‹šY	‹šÙ^JHOHš[Â‚BBYš[\ÈH\[™
+š[\ËŠB‚B_B‚_B‚\›İÜËÛÜÙJ
+B‚Y›ÜˆËˆH˜[™ÙHš[\ÈÂ‚BWÈH™[[İ™Qš[Jš[\]’›Ú[ŠK˜Ù™Ë‘]Q\‹˜›ØœÈ‹‹šÙ^JJB‚BWËÈHK™‹‘^XÊSUH”“ÓH\ÜÙ]ÈÒT‘HYOØ‹šY
+B‚_B‚WË\œˆHK™‹‘^XÊTUH][\ÈÑUİ]OIÙ\İ›ŞYY	Ë^[ØYØÚ\\^™\›Ø›ØŠJK^[ØYÛ›Û˜ÙO^™\›Ø›ØŠJHÒT‘HYOØ][RQ
+B‚ZYˆ\œˆOHš[Â‚B\™]\›ˆ\œ‚‚_B‚WË\œˆHK™‹‘^XÊTUHÛZ[\ÈÑUİ]OIÙ\İ›ŞYY	Ë\İ›ŞYYØ]OÈÒT‘HYOØ›İÕ[š^
 
-func (a *App) destroyShareItems(shareID string) error {
-	rows, err := a.db.Query(`SELECT a.id,a.storage_key FROM assets a JOIN items i ON i.id=a.item_id WHERE i.share_id=?`, shareID)
-	if err != nil {
-		return err
-	}
-	type stored struct{ id, key string }
-	var files []stored
-	for rows.Next() {
-		var v stored
-		if rows.Scan(&v.id, &v.key) == nil {
-			files = append(files, v)
-		}
-	}
-	rows.Close()
-	for _, f := range files {
-		_ = removeFile(filepath.Join(a.cfg.DataDir, "blobs", f.key))
-		_, _ = a.db.Exec(`DELETE FROM assets WHERE id=?`, f.id)
-	}
-	claims, _ := a.db.Query(`SELECT id FROM claims WHERE share_id=? AND state!='destroyed'`, shareID)
-	if claims != nil {
-		var ids []string
-		for claims.Next() {
-			var id string
-			if claims.Scan(&id) == nil {
-				ids = append(ids, id)
-			}
-		}
-		claims.Close()
-		for _, id := range ids {
-			a.hub.closeClaim(id)
-		}
-	}
-	_, err = a.db.Exec(`UPDATE claims SET state='destroyed',destroyed_at=? WHERE share_id=? AND state!='destroyed'`, nowUnix(), shareID)
-	if err != nil {
-		return err
-	}
-	_, err = a.db.Exec(`UPDATE items SET state='destroyed',payload_cipher=zeroblob(1),payload_nonce=zeroblob(1) WHERE share_id=?`, shareID)
-	return err
-}
-
-func (a *App) destroyClaim(claimID, reason string) error {
-	var itemID string
-	err := a.db.QueryRow(`SELECT item_id FROM claims WHERE id=? AND state!='destroyed'`, claimID).Scan(&itemID)
-	if errors.Is(err, sql.ErrNoRows) {
-		return nil
-	}
-	if err != nil {
-		return err
-	}
-	rows, err := a.db.Query(`SELECT id,storage_key FROM assets WHERE item_id=?`, itemID)
-	if err != nil {
-		return err
-	}
-	type stored struct{ id, key string }
-	var files []stored
-	for rows.Next() {
-		var v stored
-		if rows.Scan(&v.id, &v.key) == nil {
-			files = append(files, v)
-		}
-	}
-	rows.Close()
-	for _, f := range files {
-		_ = removeFile(filepath.Join(a.cfg.DataDir, "blobs", f.key))
-		_, _ = a.db.Exec(`DELETE FROM assets WHERE id=?`, f.id)
-	}
-	_, err = a.db.Exec(`UPDATE items SET state='destroyed',payload_cipher=zeroblob(1),payload_nonce=zeroblob(1) WHERE id=?`, itemID)
-	if err != nil {
-		return err
-	}
-	_, err = a.db.Exec(`UPDATE claims SET state='destroyed',destroyed_at=? WHERE id=?`, nowUnix(), claimID)
-	if err == nil {
-		a.hub.closeClaim(claimID)
-	}
-	_ = reason
-	return err
-}
+KÛZ[RQ
+B‚ZYˆ\œˆOHš[Â‚BXKšX‹˜ÛÜÙPÛZ[JÛZ[RQ
+B‚_B‚WÈH™X\ÛÛ‚‚\™]\›ˆ\œ‚ŸB
