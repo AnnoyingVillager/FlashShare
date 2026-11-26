@@ -216,7 +216,7 @@ func TestManualShareDeletionRemovesDatabaseRecord(t *testing.T) {
 	assertShareDeleted(t, app, body.Share.ID)
 }
 
-func TestSubscriptionLimitKeepsRecordAndCanReactivate(t *testing.T) {
+func TestSubscriptionCanBeEditedAndReactivated(t *testing.T) {
 	app, server, client := newTestApp(t)
 	defer server.Close()
 	defer app.Close()
@@ -228,7 +228,7 @@ func TestSubscriptionLimitKeepsRecordAndCanReactivate(t *testing.T) {
 	content := "mixed-port: 7890\nproxies: []\n"
 	created := doJSON(t, client, http.MethodPost, server.URL+"/api/subscriptions", map[string]any{
 		"title": "clash config", "content": content, "contentType": "text/yaml",
-		"base64Encoded": false, "linkValiditySeconds": 3600, "maxRequests": 1,
+		"base64Encoded": false, "linkValiditySeconds": 3600, "maxRequests": 2,
 	}, "")
 	if created.StatusCode != http.StatusCreated {
 		body, _ := io.ReadAll(created.Body)
@@ -249,42 +249,106 @@ func TestSubscriptionLimitKeepsRecordAndCanReactivate(t *testing.T) {
 	if first.StatusCode != http.StatusOK || string(got) != content {
 		t.Fatalf("subscription response status=%d body=%q", first.StatusCode, got)
 	}
+	details := doJSON(t, client, http.MethodGet, server.URL+"/api/subscriptions/"+body.Subscription.ID, map[string]any{}, "")
+	var detailBody struct {
+		Subscription Subscription `json:"subscription"`
+		Content      string       `json:"content"`
+	}
+	decodeResponse(t, details, &detailBody)
+	if details.StatusCode != http.StatusOK || detailBody.Content != content {
+		t.Fatalf("subscription details status=%d content=%q", details.StatusCode, detailBody.Content)
+	}
+
+	updatedContent := "mixed-port: 7891\nproxies:\n  - name: edited\n"
+	updated := doJSON(t, client, http.MethodPatch, server.URL+"/api/subscriptions/"+body.Subscription.ID, map[string]any{
+		"content": updatedContent, "linkValiditySeconds": 7200,
+		"remainingRequests": 2, "unlimitedRequests": false,
+	}, "")
+	if updated.StatusCode != http.StatusOK {
+		payload, _ := io.ReadAll(updated.Body)
+		updated.Body.Close()
+		t.Fatalf("update active subscription status = %d: %s", updated.StatusCode, payload)
+	}
+	updated.Body.Close()
+	var successful, maxRequests, expiresAt int64
+	if err := app.db.QueryRow(`SELECT successful_requests,max_requests,expires_at FROM subscriptions WHERE id=?`, body.Subscription.ID).
+		Scan(&successful, &maxRequests, &expiresAt); err != nil {
+		t.Fatal(err)
+	}
+	if successful != 1 || maxRequests != 3 || expiresAt < nowUnix()+7000 {
+		t.Fatalf("updated counters successful=%d max=%d expires=%d", successful, maxRequests, expiresAt)
+	}
 	second, err := client.Get(body.Subscription.PublicLink)
 	if err != nil {
 		t.Fatal(err)
 	}
+	secondBody, _ := io.ReadAll(second.Body)
 	second.Body.Close()
-	if second.StatusCode != http.StatusNotFound {
-		t.Fatalf("exhausted subscription status = %d", second.StatusCode)
+	if second.StatusCode != http.StatusOK || string(secondBody) != updatedContent {
+		t.Fatalf("updated subscription status=%d body=%q", second.StatusCode, secondBody)
 	}
-	var successful int64
-	if err := app.db.QueryRow(`SELECT successful_requests FROM subscriptions WHERE id=?`, body.Subscription.ID).Scan(&successful); err != nil {
-		t.Fatalf("exhausted subscription record missing: %v", err)
+
+	revived := doJSON(t, client, http.MethodPatch, server.URL+"/api/subscriptions/"+body.Subscription.ID, map[string]any{
+		"content": "proxies: []\n", "linkValiditySeconds": 0,
+		"remainingRequests": 1, "unlimitedRequests": false,
+	}, "")
+	if revived.StatusCode != http.StatusOK {
+		payload, _ := io.ReadAll(revived.Body)
+		revived.Body.Close()
+		t.Fatalf("update subscription expiry status = %d: %s", revived.StatusCode, payload)
 	}
-	if successful != 1 {
-		t.Fatalf("successful requests = %d", successful)
+	revived.Body.Close()
+	third, err := client.Get(body.Subscription.PublicLink)
+	if err != nil {
+		t.Fatal(err)
+	}
+	thirdBody, _ := io.ReadAll(third.Body)
+	third.Body.Close()
+	if third.StatusCode != http.StatusOK || string(thirdBody) != "proxies: []\n" {
+		t.Fatalf("revived subscription status=%d body=%q", third.StatusCode, thirdBody)
+	}
+	exhausted, err := client.Get(body.Subscription.PublicLink)
+	if err != nil {
+		t.Fatal(err)
+	}
+	exhausted.Body.Close()
+	if exhausted.StatusCode != http.StatusNotFound {
+		t.Fatalf("exhausted subscription status = %d", exhausted.StatusCode)
 	}
 	if err := app.cleanupExpired(); err != nil {
 		t.Fatal(err)
 	}
 
-	reactivated := doJSON(t, client, http.MethodPatch, server.URL+"/api/subscriptions/"+body.Subscription.ID, map[string]any{
-		"linkValiditySeconds": 7200, "maxRequests": 2,
+	unlimited := doJSON(t, client, http.MethodPatch, server.URL+"/api/subscriptions/"+body.Subscription.ID, map[string]any{
+		"content": "unlimited: true\n", "linkValiditySeconds": 0,
+		"remainingRequests": 0, "unlimitedRequests": true,
 	}, "")
-	if reactivated.StatusCode != http.StatusOK {
-		payload, _ := io.ReadAll(reactivated.Body)
-		reactivated.Body.Close()
-		t.Fatalf("reactivate status = %d: %s", reactivated.StatusCode, payload)
+	if unlimited.StatusCode != http.StatusOK {
+		payload, _ := io.ReadAll(unlimited.Body)
+		unlimited.Body.Close()
+		t.Fatalf("reactivate unlimited status = %d: %s", unlimited.StatusCode, payload)
 	}
-	reactivated.Body.Close()
+	unlimited.Body.Close()
+	if err := app.db.QueryRow(`SELECT successful_requests,max_requests,expires_at FROM subscriptions WHERE id=?`, body.Subscription.ID).
+		Scan(&successful, &maxRequests, &expiresAt); err != nil {
+		t.Fatal(err)
+	}
+	if successful != 3 || maxRequests != 0 || expiresAt != 0 {
+		t.Fatalf("unlimited subscription successful=%d max=%d expires=%d", successful, maxRequests, expiresAt)
+	}
 	again, err := client.Get(body.Subscription.PublicLink)
 	if err != nil {
 		t.Fatal(err)
 	}
 	againBody, _ := io.ReadAll(again.Body)
 	again.Body.Close()
-	if again.StatusCode != http.StatusOK || string(againBody) != content {
-		t.Fatalf("reactivated subscription status=%d body=%q", again.StatusCode, againBody)
+	if again.StatusCode != http.StatusOK || string(againBody) != "unlimited: true\n" {
+		t.Fatalf("unlimited subscription status=%d body=%q", again.StatusCode, againBody)
+	}
+	details = doJSON(t, client, http.MethodGet, server.URL+"/api/subscriptions/"+body.Subscription.ID, map[string]any{}, "")
+	decodeResponse(t, details, &detailBody)
+	if detailBody.Content != "unlimited: true\n" || detailBody.Subscription.MaxRequests != 0 || detailBody.Subscription.SuccessfulRequests != 4 {
+		t.Fatalf("unlimited details = %+v content=%q", detailBody.Subscription, detailBody.Content)
 	}
 
 	deleted := doJSON(t, client, http.MethodDelete, server.URL+"/api/subscriptions/"+body.Subscription.ID, map[string]any{}, "")

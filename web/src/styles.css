@@ -118,7 +118,14 @@ textarea { resize: vertical; min-height: 95px; line-height: 1.55; }
 .list-heading { margin: 34px 0 14px; font-size: 18px; letter-spacing: -.02em; }
 .list-heading:first-of-type { margin-top: 8px; }
 .subscription-card { flex-wrap: wrap; }
-.reactivation-panel { flex-basis: 100%; display: grid; gap: 16px; padding-top: 18px; border-top: 1px solid var(--line); }
+.subscription-card.is-expired { opacity: 1; }
+.subscription-card.is-expired > .share-main,
+.subscription-card.is-expired > .share-actions { opacity: .62; }
+.subscription-edit-panel { flex-basis: 100%; display: grid; gap: 16px; padding-top: 18px; border-top: 1px solid var(--line); }
+.edit-summary { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.edit-summary strong { display: block; margin-bottom: 5px; }
+.edit-summary p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+.edit-summary > span { color: var(--muted); font-size: 12px; white-space: nowrap; }
 .subscription-editor { min-height: 440px; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; line-height: 1.6; }
 .empty-state { min-height: 360px; display: grid; place-content: center; text-align: center; border: 1px dashed var(--line-strong); border-radius: 16px; padding: 32px; }
 .empty-state h3 { font-size: 22px; margin: 12px 0 4px; }
@@ -259,6 +266,7 @@ textarea { resize: vertical; min-height: 95px; line-height: 1.55; }
   .metric { padding: 15px 18px; }
   .share-card { align-items: flex-start; flex-direction: column; }
   .share-actions { width: 100%; }
+  .edit-summary { flex-direction: column; gap: 8px; }
   .form-section { grid-template-columns: 1fr; padding: 20px; }
   .section-number { border-right: 0; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
   .submit-bar { align-items: stretch; flex-direction: column; }

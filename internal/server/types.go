@@ -124,6 +124,13 @@ type CreateSubscriptionRequest struct {
 	MaxRequests   int64  `json:"maxRequests"`
 }
 
+type UpdateSubscriptionRequest struct {
+	Content           string `json:"content"`
+	LinkValidity      int64  `json:"linkValiditySeconds"`
+	RemainingRequests int64  `json:"remainingRequests"`
+	UnlimitedRequests bool   `json:"unlimitedRequests"`
+}
+
 type Asset struct {
 	ID           string `json:"id"`
 	OriginalName string `json:"name"`

@@ -17,6 +17,11 @@ type subscriptionRecord struct {
 	ContentNonce  []byte
 }
 
+const subscriptionRecordSelect = `SELECT s.id,s.owner_id,u.username,s.public_id,s.title,s.content_type,s.base64_encoded,
+	s.expires_at,s.max_requests,s.successful_requests,s.created_at,s.token_cipher,s.token_nonce,
+	s.token_hash,s.content_cipher,s.content_nonce
+	FROM subscriptions s JOIN users u ON u.id=s.owner_id`
+
 func (a *App) handleCreateSubscription(w http.ResponseWriter, r *http.Request) {
 	if !sameOrigin(r) {
 		writeError(w, http.StatusForbidden, "请求来源无效")
@@ -173,6 +178,28 @@ func (a *App) handleListSubscriptions(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]any{"subscriptions": subscriptions})
 }
 
+func (a *App) handleGetSubscription(w http.ResponseWriter, r *http.Request) {
+	auth, err := a.requireUser(r)
+	if err != nil {
+		writeError(w, http.StatusUnauthorized, err.Error())
+		return
+	}
+	subscription, err := a.subscriptionByID(r.PathValue("id"))
+	if err != nil || (subscription.OwnerID != auth.User.ID && auth.User.Role != "admin") {
+		writeError(w, http.StatusNotFound, "订阅不存在")
+		return
+	}
+	content, err := a.decryptText("subscription-content:"+subscription.ID, subscription.ContentCipher, subscription.ContentNonce)
+	if err != nil {
+		writeError(w, http.StatusInternalServerError, "无法读取订阅内容")
+		return
+	}
+	writeJSON(w, http.StatusOK, map[string]any{
+		"subscription": subscription.Subscription,
+		"content":      string(content),
+	})
+}
+
 func (a *App) handleDeleteSubscription(w http.ResponseWriter, r *http.Request) {
 	if !sameOrigin(r) {
 		writeError(w, http.StatusForbidden, "请求来源无效")
@@ -196,7 +223,7 @@ func (a *App) handleDeleteSubscription(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]bool{"ok": true})
 }
 
-func (a *App) handleReactivateSubscription(w http.ResponseWriter, r *http.Request) {
+func (a *App) handleUpdateSubscription(w http.ResponseWriter, r *http.Request) {
 	if !sameOrigin(r) {
 		writeError(w, http.StatusForbidden, "请求来源无效")
 		return
@@ -206,11 +233,8 @@ func (a *App) handleReactivateSubscription(w http.ResponseWriter, r *http.Reques
 		writeError(w, http.StatusUnauthorized, err.Error())
 		return
 	}
-	var req struct {
-		LinkValidity int64 `json:"linkValiditySeconds"`
-		MaxRequests  int64 `json:"maxRequests"`
-	}
-	if err := decodeJSON(r, &req); err != nil {
+	var req UpdateSubscriptionRequest
+	if err := decodeJSONLimit(r, &req, 4<<20); err != nil {
 		writeError(w, http.StatusBadRequest, err.Error())
 		return
 	}
@@ -219,46 +243,73 @@ func (a *App) handleReactivateSubscription(w http.ResponseWriter, r *http.Reques
 		writeError(w, http.StatusInternalServerError, "无法读取设置")
 		return
 	}
+	if strings.TrimSpace(req.Content) == "" {
+		writeError(w, http.StatusBadRequest, "订阅内容不能为空")
+		return
+	}
+	if len([]byte(req.Content)) > settings.MaxTextBytes {
+		writeError(w, http.StatusBadRequest, "订阅内容超过管理员配置的文本上限")
+		return
+	}
 	expiresAt, err := subscriptionExpiry(req.LinkValidity, settings.MaxLinkValidity)
 	if err != nil {
 		writeError(w, http.StatusBadRequest, err.Error())
 		return
 	}
-	if req.MaxRequests < 0 || req.MaxRequests > 1_000_000_000 {
-		writeError(w, http.StatusBadRequest, "请求次数必须为 0（无限）或 1 到 1000000000")
-		return
-	}
-	var ownerID string
-	err = a.db.QueryRow(`SELECT owner_id FROM subscriptions WHERE id=?`, r.PathValue("id")).Scan(&ownerID)
-	if err != nil || ownerID != auth.User.ID && auth.User.Role != "admin" {
-		writeError(w, http.StatusNotFound, "订阅不存在")
+	if !req.UnlimitedRequests && (req.RemainingRequests < 1 || req.RemainingRequests > 1_000_000_000) {
+		writeError(w, http.StatusBadRequest, "剩余请求次数必须为 1 到 1000000000，或设置为无限")
 		return
 	}
 	now := nowUnix()
 	tx, err := a.db.Begin()
 	if err != nil {
-		writeError(w, http.StatusInternalServerError, "无法重新启用订阅")
+		writeError(w, http.StatusInternalServerError, "无法修改订阅")
 		return
 	}
 	defer tx.Rollback()
-	var active int
-	err = tx.QueryRow(`SELECT
-		(SELECT COUNT(*) FROM shares WHERE owner_id=? AND revoked_at=0 AND expires_at>?) +
-		(SELECT COUNT(*) FROM subscriptions WHERE owner_id=? AND id!=? AND (expires_at=0 OR expires_at>?) AND (max_requests=0 OR successful_requests<max_requests))`,
-		ownerID, now, ownerID, r.PathValue("id"), now).Scan(&active)
-	if err == nil && active >= settings.MaxActiveSharesPerUser {
-		err = errText(fmt.Sprintf("最多同时开启 %d 条分享或订阅链接", settings.MaxActiveSharesPerUser))
+	var ownerID string
+	var currentExpiresAt, currentMaxRequests, currentSuccessfulRequests int64
+	err = tx.QueryRow(`SELECT owner_id,expires_at,max_requests,successful_requests FROM subscriptions WHERE id=?`,
+		r.PathValue("id")).Scan(&ownerID, &currentExpiresAt, &currentMaxRequests, &currentSuccessfulRequests)
+	if err != nil || ownerID != auth.User.ID && auth.User.Role != "admin" {
+		writeError(w, http.StatusNotFound, "订阅不存在")
+		return
 	}
-	if err == nil {
-		_, err = tx.Exec(`UPDATE subscriptions SET expires_at=?,max_requests=?,successful_requests=0 WHERE id=?`,
-			expiresAt, req.MaxRequests, r.PathValue("id"))
+	wasActive := subscriptionIsActive(currentExpiresAt, currentMaxRequests, currentSuccessfulRequests, now)
+	willBeActive := (expiresAt == 0 || expiresAt > now) && (req.UnlimitedRequests || req.RemainingRequests > 0)
+	if !wasActive && willBeActive {
+		var active int
+		err = tx.QueryRow(`SELECT
+			(SELECT COUNT(*) FROM shares WHERE owner_id=? AND revoked_at=0 AND expires_at>?) +
+			(SELECT COUNT(*) FROM subscriptions WHERE owner_id=? AND id!=? AND (expires_at=0 OR expires_at>?) AND (max_requests=0 OR successful_requests<max_requests))`,
+			ownerID, now, ownerID, r.PathValue("id"), now).Scan(&active)
+		if err != nil {
+			writeError(w, http.StatusInternalServerError, "无法检查活跃链接数量")
+			return
+		}
+		if active >= settings.MaxActiveSharesPerUser {
+			writeError(w, http.StatusBadRequest, fmt.Sprintf("最多同时开启 %d 条分享或订阅链接", settings.MaxActiveSharesPerUser))
+			return
+		}
+	}
+	contentCipher, contentNonce, err := a.encryptText("subscription-content:"+r.PathValue("id"), []byte(req.Content))
+	if err != nil {
+		writeError(w, http.StatusInternalServerError, "无法加密订阅内容")
+		return
+	}
+	if req.UnlimitedRequests {
+		_, err = tx.Exec(`UPDATE subscriptions SET content_cipher=?,content_nonce=?,expires_at=?,max_requests=0 WHERE id=?`,
+			contentCipher, contentNonce, expiresAt, r.PathValue("id"))
+	} else {
+		_, err = tx.Exec(`UPDATE subscriptions SET content_cipher=?,content_nonce=?,expires_at=?,max_requests=successful_requests+? WHERE id=?`,
+			contentCipher, contentNonce, expiresAt, req.RemainingRequests, r.PathValue("id"))
 	}
 	if err != nil {
-		writeError(w, http.StatusBadRequest, err.Error())
+		writeError(w, http.StatusInternalServerError, "无法保存订阅修改")
 		return
 	}
 	if err := tx.Commit(); err != nil {
-		writeError(w, http.StatusInternalServerError, "无法重新启用订阅")
+		writeError(w, http.StatusInternalServerError, "无法保存订阅修改")
 		return
 	}
 	writeJSON(w, http.StatusOK, map[string]bool{"ok": true})
@@ -315,10 +366,12 @@ func (a *App) handleSubscriptionContent(w http.ResponseWriter, r *http.Request) 
 }
 
 func (a *App) subscriptionByPublicID(publicID string) (subscriptionRecord, error) {
-	row := a.db.QueryRow(`SELECT s.id,s.owner_id,u.username,s.public_id,s.title,s.content_type,s.base64_encoded,
-		s.expires_at,s.max_requests,s.successful_requests,s.created_at,s.token_cipher,s.token_nonce,
-		s.token_hash,s.content_cipher,s.content_nonce
-		FROM subscriptions s JOIN users u ON u.id=s.owner_id WHERE s.public_id=?`, publicID)
+	row := a.db.QueryRow(subscriptionRecordSelect+` WHERE s.public_id=?`, publicID)
+	return scanSubscriptionRecord(row)
+}
+
+func (a *App) subscriptionByID(id string) (subscriptionRecord, error) {
+	row := a.db.QueryRow(subscriptionRecordSelect+` WHERE s.id=?`, id)
 	return scanSubscriptionRecord(row)
 }
 
@@ -348,6 +401,10 @@ func subscriptionExpiry(validity int64, maxValidity int) (int64, error) {
 		return 0, errText(fmt.Sprintf("订阅有效期必须在 1 分钟到 %d 秒之间，或设置为永不过期", maxValidity))
 	}
 	return nowUnix() + validity, nil
+}
+
+func subscriptionIsActive(expiresAt, maxRequests, successfulRequests, now int64) bool {
+	return (expiresAt == 0 || expiresAt > now) && (maxRequests == 0 || successfulRequests < maxRequests)
 }
 
 type subscriptionScanner interface {

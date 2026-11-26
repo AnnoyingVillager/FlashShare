@@ -65,7 +65,14 @@ export const api = {
     linkValiditySeconds: number;
     maxRequests: number;
   }) => request<{ subscription: Subscription }>("/api/subscriptions", { method: "POST", body: JSON.stringify(payload) }),
-  reactivateSubscription: (id: string, payload: { linkValiditySeconds: number; maxRequests: number }) =>
+  subscription: (id: string) =>
+    request<{ subscription: Subscription; content: string }>(`/api/subscriptions/${id}`),
+  updateSubscription: (id: string, payload: {
+    content: string;
+    linkValiditySeconds: number;
+    remainingRequests: number;
+    unlimitedRequests: boolean;
+  }) =>
     request<{ ok: boolean }>(`/api/subscriptions/${id}`, { method: "PATCH", body: JSON.stringify(payload) }),
   deleteSubscription: (id: string) => request<{ ok: boolean }>(`/api/subscriptions/${id}`, { method: "DELETE" }),
 

@@ -1,8 +1,21 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
-import { api, errorMessage } from "../api";
+import { api, errorMessage, formatBytes } from "../api";
 import { EmptyState, Layout, PageHeading } from "../components/Layout";
 import type { Share, Subscription, User, UserConfig } from "../types";
+
+type SubscriptionEditState = {
+  id: string;
+  content: string;
+  contentType: Subscription["contentType"];
+  base64Encoded: boolean;
+  remainingRequests: number;
+  unlimitedRequests: boolean;
+  validityHours: number;
+  neverExpires: boolean;
+  successfulRequests: number;
+  active: boolean;
+};
 
 export function DashboardPage({ user, onLogout }: { user: User; onLogout: () => void }) {
   const [shares, setShares] = useState<Share[]>([]);
@@ -11,11 +24,9 @@ export function DashboardPage({ user, onLogout }: { user: User; onLogout: () => 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [copied, setCopied] = useState("");
-  const [reactivatingId, setReactivatingId] = useState("");
-  const [reactivationNeverExpires, setReactivationNeverExpires] = useState(false);
-  const [reactivationValidityHours, setReactivationValidityHours] = useState(24);
-  const [reactivationUnlimitedRequests, setReactivationUnlimitedRequests] = useState(false);
-  const [reactivationMaxRequests, setReactivationMaxRequests] = useState(100);
+  const [editState, setEditState] = useState<SubscriptionEditState | null>(null);
+  const [editLoadingId, setEditLoadingId] = useState("");
+  const [editSaving, setEditSaving] = useState(false);
 
   async function load() {
     setLoading(true);
@@ -57,42 +68,87 @@ export function DashboardPage({ user, onLogout }: { user: User; onLogout: () => 
     if (!window.confirm(`永久删除订阅“${subscription.title}”及其内容？`)) return;
     try {
       await api.deleteSubscription(subscription.id);
+      if (editState?.id === subscription.id) setEditState(null);
       await load();
     } catch (err) {
       setError(errorMessage(err));
     }
   }
 
-  function startReactivation(subscription: Subscription) {
-    setReactivatingId(subscription.id);
-    setReactivationNeverExpires(subscription.expiresAt === 0);
-    setReactivationValidityHours(Math.max(1 / 60, (config?.defaultLinkValiditySeconds || 86400) / 3600));
-    setReactivationUnlimitedRequests(subscription.maxRequests === 0);
-    setReactivationMaxRequests(subscription.maxRequests > 0 ? subscription.maxRequests : 100);
+  async function toggleEdit(subscription: Subscription) {
+    if (editState?.id === subscription.id) {
+      setEditState(null);
+      return;
+    }
+    setEditLoadingId(subscription.id);
+    setEditState(null);
     setError("");
+    try {
+      const result = await api.subscription(subscription.id);
+      const current = result.subscription;
+      const now = Date.now() / 1000;
+      const maxValidityHours = (config?.maxLinkValiditySeconds || 86400) / 3600;
+      const currentRemainingHours = current.expiresAt > now
+        ? (current.expiresAt - now) / 3600
+        : (config?.defaultLinkValiditySeconds || 86400) / 3600;
+      setEditState({
+        id: current.id,
+        content: result.content,
+        contentType: current.contentType,
+        base64Encoded: current.base64Encoded,
+        remainingRequests: current.maxRequests === 0
+          ? 100
+          : Math.max(1, current.maxRequests - current.successfulRequests),
+        unlimitedRequests: current.maxRequests === 0,
+        validityHours: Math.min(maxValidityHours, Math.max(1 / 60, currentRemainingHours)),
+        neverExpires: current.expiresAt === 0,
+        successfulRequests: current.successfulRequests,
+        active: (current.expiresAt === 0 || current.expiresAt > now)
+          && (current.maxRequests === 0 || current.successfulRequests < current.maxRequests),
+      });
+    } catch (err) {
+      setError(errorMessage(err));
+    } finally {
+      setEditLoadingId("");
+    }
   }
 
-  async function reactivate(event: FormEvent) {
+  async function saveSubscription(event: FormEvent) {
     event.preventDefault();
-    if (!reactivatingId || !config) return;
-    const validitySeconds = reactivationNeverExpires ? 0 : Math.round(reactivationValidityHours * 3600);
-    if (!reactivationNeverExpires && (validitySeconds < 60 || validitySeconds > config.maxLinkValiditySeconds)) {
+    if (!editState || !config) return;
+    const contentBytes = new TextEncoder().encode(editState.content).length;
+    if (!editState.content.trim()) {
+      setError("订阅内容不能为空");
+      return;
+    }
+    if (contentBytes > config.maxTextBytes) {
+      setError(`订阅内容超过 ${formatBytes(config.maxTextBytes)}`);
+      return;
+    }
+    const validitySeconds = editState.neverExpires ? 0 : Math.round(editState.validityHours * 3600);
+    if (!editState.neverExpires && (validitySeconds < 60 || validitySeconds > config.maxLinkValiditySeconds)) {
       setError(`有效期必须在 1 分钟到 ${Math.floor(config.maxLinkValiditySeconds / 3600)} 小时之间`);
       return;
     }
-    if (!reactivationUnlimitedRequests && (!Number.isInteger(reactivationMaxRequests) || reactivationMaxRequests < 1)) {
-      setError("请求上限必须是大于 0 的整数");
+    if (!editState.unlimitedRequests && (!Number.isInteger(editState.remainingRequests) || editState.remainingRequests < 1)) {
+      setError("剩余请求次数必须是大于 0 的整数");
       return;
     }
+    setEditSaving(true);
+    setError("");
     try {
-      await api.reactivateSubscription(reactivatingId, {
+      await api.updateSubscription(editState.id, {
+        content: editState.content,
         linkValiditySeconds: validitySeconds,
-        maxRequests: reactivationUnlimitedRequests ? 0 : reactivationMaxRequests,
+        remainingRequests: editState.unlimitedRequests ? 0 : editState.remainingRequests,
+        unlimitedRequests: editState.unlimitedRequests,
       });
-      setReactivatingId("");
+      setEditState(null);
       await load();
     } catch (err) {
       setError(errorMessage(err));
+    } finally {
+      setEditSaving(false);
     }
   }
 
@@ -171,7 +227,7 @@ export function DashboardPage({ user, onLogout }: { user: User; onLogout: () => 
                       </div>
                       <div className="share-meta">
                         {user.role === "admin" && <span>创建者 {subscription.ownerName}</span>}
-                        <span>{subscription.successfulRequests} / {subscription.maxRequests === 0 ? "∞" : subscription.maxRequests} 次成功请求</span>
+                        <span>{subscription.maxRequests === 0 ? "剩余无限" : `剩余 ${Math.max(0, subscription.maxRequests - subscription.successfulRequests)} 次`} · 已成功 {subscription.successfulRequests} 次</span>
                         <span>{subscription.expiresAt === 0 ? "永不过期" : `到期 ${formatDate(subscription.expiresAt)}`}</span>
                         <span>{subscription.contentType}{subscription.base64Encoded ? " · Base64" : ""}</span>
                       </div>
@@ -180,20 +236,30 @@ export function DashboardPage({ user, onLogout }: { user: User; onLogout: () => 
                       <button className="button secondary small" disabled={!active} onClick={() => void copyLink(`subscription:${subscription.id}`, subscription.publicLink)}>
                         {copied === `subscription:${subscription.id}` ? "已复制" : "复制链接"}
                       </button>
-                      {!active && <button className="button secondary small" onClick={() => startReactivation(subscription)}>重新启用</button>}
+                      <button className="button secondary small" disabled={editLoadingId === subscription.id} onClick={() => void toggleEdit(subscription)}>
+                        {editLoadingId === subscription.id ? "读取中…" : editState?.id === subscription.id ? "收起修改" : "修改"}
+                      </button>
                       <button className="button danger-ghost small" onClick={() => void destroySubscription(subscription)}>删除</button>
                     </div>
-                    {reactivatingId === subscription.id && (
-                      <form className="reactivation-panel" onSubmit={(event) => void reactivate(event)}>
+                    {editState?.id === subscription.id && (
+                      <form className="subscription-edit-panel" onSubmit={(event) => void saveSubscription(event)}>
+                        <div className="edit-summary">
+                          <div><strong>{editState.active ? "修改订阅" : "修改并重新启用"}</strong><p>保存后原链接立即使用新内容；累计成功次数不会重置。</p></div>
+                          <span>已成功 {editState.successfulRequests} 次</span>
+                        </div>
+                        <label>订阅内容
+                          <textarea className="subscription-editor" rows={18} value={editState.content} onChange={(e) => setEditState({ ...editState, content: e.target.value })} required />
+                          <small>{formatBytes(new TextEncoder().encode(editState.content).length)} / {formatBytes(config?.maxTextBytes || 0)} · {editState.contentType}{editState.base64Encoded ? " · Base64" : ""}</small>
+                        </label>
                         <div className="form-grid two">
-                          <label>新请求上限<input type="number" min={1} step={1} value={reactivationMaxRequests} onChange={(e) => setReactivationMaxRequests(Number(e.target.value))} disabled={reactivationUnlimitedRequests} required={!reactivationUnlimitedRequests} /></label>
-                          <label className="toggle-row compact"><input type="checkbox" checked={reactivationUnlimitedRequests} onChange={(e) => setReactivationUnlimitedRequests(e.target.checked)} /><span><strong>无限请求次数</strong><small>重新启用后从 0 开始统计。</small></span></label>
-                          <label>新有效期（小时）<input type="number" min={1 / 60} max={(config?.maxLinkValiditySeconds || 86400) / 3600} step={1 / 60} value={reactivationValidityHours} onChange={(e) => setReactivationValidityHours(Number(e.target.value))} disabled={reactivationNeverExpires} required={!reactivationNeverExpires} /></label>
-                          <label className="toggle-row compact"><input type="checkbox" checked={reactivationNeverExpires} onChange={(e) => setReactivationNeverExpires(e.target.checked)} /><span><strong>永不过期</strong><small>保留相同链接和内容。</small></span></label>
+                          <label>剩余请求次数<input type="number" min={1} step={1} value={editState.remainingRequests} onChange={(e) => setEditState({ ...editState, remainingRequests: Number(e.target.value) })} disabled={editState.unlimitedRequests} required={!editState.unlimitedRequests} /></label>
+                          <label className="toggle-row compact"><input type="checkbox" checked={editState.unlimitedRequests} onChange={(e) => setEditState({ ...editState, unlimitedRequests: e.target.checked })} /><span><strong>无限请求次数</strong><small>累计成功次数仍会继续统计。</small></span></label>
+                          <label>保存后有效期（小时）<input type="number" min={1 / 60} max={(config?.maxLinkValiditySeconds || 86400) / 3600} step={1 / 60} value={editState.validityHours} onChange={(e) => setEditState({ ...editState, validityHours: Number(e.target.value) })} disabled={editState.neverExpires} required={!editState.neverExpires} /></label>
+                          <label className="toggle-row compact"><input type="checkbox" checked={editState.neverExpires} onChange={(e) => setEditState({ ...editState, neverExpires: e.target.checked })} /><span><strong>永不过期</strong><small>保留相同订阅链接。</small></span></label>
                         </div>
                         <div className="button-row">
-                          <button className="button primary small" type="submit">确认重新启用</button>
-                          <button className="button ghost small" type="button" onClick={() => setReactivatingId("")}>取消</button>
+                          <button className="button primary small" type="submit" disabled={editSaving}>{editSaving ? "正在保存…" : editState.active ? "保存修改" : "保存并重新启用"}</button>
+                          <button className="button ghost small" type="button" onClick={() => setEditState(null)} disabled={editSaving}>取消</button>
                         </div>
                       </form>
                     )}
