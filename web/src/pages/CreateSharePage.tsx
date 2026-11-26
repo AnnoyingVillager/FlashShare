@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "r
 import { Link, useNavigate } from "react-router-dom";
 import { api, errorMessage, formatBytes } from "../api";
 import { Layout, PageHeading } from "../components/Layout";
-import type { Asset, Block, ItemInput, Share, User, UserConfig } from "../types";
+import type { Asset, BlockInput, ItemInput, Share, User, UserConfig } from "../types";
 
 type Align = "left" | "center" | "right";
 type CellDraft = { text: string; align: Align };
@@ -126,16 +126,13 @@ export function CreateSharePage({ user, onLogout }: { user: User; onLogout: () =
 
   function buildItems(): ItemInput[] {
     return rows.map((row, index) => {
-      const blocks: Block[] = row.cells
+      const blocks: BlockInput[] = row.cells
         .filter((cell) => cell.text.trim())
         .map((cell) => ({ type: "markdown", text: cell.text.trim(), align: cell.align }));
       for (const asset of row.assets) {
         blocks.push({
           type: asset.mimeType.startsWith("image/") ? "image" : "file",
-          assetId: asset.id,
-          assetName: asset.name,
-          mimeType: asset.mimeType,
-          size: asset.size
+          assetId: asset.id
         });
       }
       if (!blocks.length) throw new Error(`第 ${index + 1} 行没有任何内容`);

@@ -57,8 +57,15 @@ export interface Block {
   size?: number;
 }
 
+export interface BlockInput {
+  type: "markdown" | "image" | "file";
+  text?: string;
+  align?: "left" | "center" | "right";
+  assetId?: string;
+}
+
 export interface ItemInput {
-  blocks: Block[];
+  blocks: BlockInput[];
 }
 
 export interface Share {
