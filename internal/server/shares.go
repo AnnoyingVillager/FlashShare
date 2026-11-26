@@ -325,11 +325,10 @@ func (a *App) handleDeleteShare(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusNotFound, "分享不存在")
 		return
 	}
-	if err := a.destroyShareItems(share.ID); err != nil {
+	if err := a.deleteShareAndContent(share.ID); err != nil {
 		writeError(w, http.StatusInternalServerError, "无法销毁分享内容")
 		return
 	}
-	_, _ = a.db.Exec(`UPDATE shares SET revoked_at=? WHERE id=?`, nowUnix(), share.ID)
 	writeJSON(w, http.StatusOK, map[string]bool{"ok": true})
 }
 
@@ -386,24 +385,24 @@ func constantEqual(a, b string) bool {
 	return subtle.ConstantTimeCompare([]byte(a), []byte(b)) == 1
 }
 
-func (a *App) destroyShareItems(shareID string) error {
-	rows, err := a.db.Query(`SELECT a.id,a.storage_key FROM assets a JOIN items i ON i.id=a.item_id WHERE i.share_id=?`, shareID)
+func (a *App) deleteShareAndContent(shareID string) error {
+	rows, err := a.db.Query(`SELECT a.storage_key FROM assets a JOIN items i ON i.id=a.item_id WHERE i.share_id=?`, shareID)
 	if err != nil {
 		return err
 	}
-	type stored struct{ id, key string }
-	var files []stored
+	var storageKeys []string
 	for rows.Next() {
-		var v stored
-		if rows.Scan(&v.id, &v.key) == nil {
-			files = append(files, v)
+		var key string
+		if rows.Scan(&key) == nil {
+			storageKeys = append(storageKeys, key)
 		}
 	}
-	rows.Close()
-	for _, f := range files {
-		_ = removeFile(filepath.Join(a.cfg.DataDir, "blobs", f.key))
-		_, _ = a.db.Exec(`DELETE FROM assets WHERE id=?`, f.id)
+	if err := rows.Err(); err != nil {
+		rows.Close()
+		return err
 	}
+	rows.Close()
+
 	claims, _ := a.db.Query(`SELECT id FROM claims WHERE share_id=? AND state!='destroyed'`, shareID)
 	if claims != nil {
 		var ids []string
@@ -418,48 +417,42 @@ func (a *App) destroyShareItems(shareID string) error {
 			a.hub.closeClaim(id)
 		}
 	}
-	_, err = a.db.Exec(`UPDATE claims SET state='destroyed',destroyed_at=? WHERE share_id=? AND state!='destroyed'`, nowUnix(), shareID)
+
+	for _, key := range storageKeys {
+		if err := removeFile(filepath.Join(a.cfg.DataDir, "blobs", key)); err != nil {
+			return fmt.Errorf("remove share asset: %w", err)
+		}
+	}
+
+	tx, err := a.db.Begin()
 	if err != nil {
 		return err
 	}
-	_, err = a.db.Exec(`UPDATE items SET state='destroyed',payload_cipher=zeroblob(1),payload_nonce=zeroblob(1) WHERE share_id=?`, shareID)
-	return err
+	defer tx.Rollback()
+	if _, err := tx.Exec(`UPDATE items SET payload_cipher=zeroblob(1),payload_nonce=zeroblob(1) WHERE share_id=?`, shareID); err != nil {
+		return err
+	}
+	if _, err := tx.Exec(`UPDATE shares SET secret_cipher=zeroblob(1),secret_nonce=zeroblob(1) WHERE id=?`, shareID); err != nil {
+		return err
+	}
+	if _, err := tx.Exec(`DELETE FROM assets WHERE item_id IN (SELECT id FROM items WHERE share_id=?)`, shareID); err != nil {
+		return err
+	}
+	if _, err := tx.Exec(`DELETE FROM shares WHERE id=?`, shareID); err != nil {
+		return err
+	}
+	return tx.Commit()
 }
 
 func (a *App) destroyClaim(claimID, reason string) error {
-	var itemID string
-	err := a.db.QueryRow(`SELECT item_id FROM claims WHERE id=? AND state!='destroyed'`, claimID).Scan(&itemID)
+	var shareID string
+	err := a.db.QueryRow(`SELECT share_id FROM claims WHERE id=? AND state!='destroyed'`, claimID).Scan(&shareID)
 	if errors.Is(err, sql.ErrNoRows) {
 		return nil
 	}
 	if err != nil {
 		return err
 	}
-	rows, err := a.db.Query(`SELECT id,storage_key FROM assets WHERE item_id=?`, itemID)
-	if err != nil {
-		return err
-	}
-	type stored struct{ id, key string }
-	var files []stored
-	for rows.Next() {
-		var v stored
-		if rows.Scan(&v.id, &v.key) == nil {
-			files = append(files, v)
-		}
-	}
-	rows.Close()
-	for _, f := range files {
-		_ = removeFile(filepath.Join(a.cfg.DataDir, "blobs", f.key))
-		_, _ = a.db.Exec(`DELETE FROM assets WHERE id=?`, f.id)
-	}
-	_, err = a.db.Exec(`UPDATE items SET state='destroyed',payload_cipher=zeroblob(1),payload_nonce=zeroblob(1) WHERE id=?`, itemID)
-	if err != nil {
-		return err
-	}
-	_, err = a.db.Exec(`UPDATE claims SET state='destroyed',destroyed_at=? WHERE id=?`, nowUnix(), claimID)
-	if err == nil {
-		a.hub.closeClaim(claimID)
-	}
 	_ = reason
-	return err
+	return a.deleteShareAndContent(shareID)
 }

@@ -37,7 +37,7 @@ func New(cfg Config, version string, static fs.FS) (*App, error) {
 	db.SetMaxOpenConns(1)
 	db.SetMaxIdleConns(1)
 	db.SetConnMaxLifetime(0)
-	if _, err := db.Exec(`PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000; PRAGMA foreign_keys=ON; PRAGMA synchronous=NORMAL;`); err != nil {
+	if _, err := db.Exec(`PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000; PRAGMA foreign_keys=ON; PRAGMA synchronous=NORMAL; PRAGMA secure_delete=ON;`); err != nil {
 		db.Close()
 		return nil, fmt.Errorf("configure database: %w", err)
 	}
@@ -305,7 +305,9 @@ func (a *App) cleanupExpired() error {
 	}
 
 	var expiredShares []string
-	rows, err = a.db.Query(`SELECT id FROM shares WHERE revoked_at=0 AND expires_at <= ?`, now)
+	rows, err = a.db.Query(`SELECT DISTINCT s.id FROM shares s WHERE s.expires_at <= ? OR s.revoked_at!=0 OR EXISTS (
+		SELECT 1 FROM claims c WHERE c.share_id=s.id AND c.state='destroyed'
+	)`, now)
 	if err != nil {
 		return err
 	}
@@ -317,7 +319,7 @@ func (a *App) cleanupExpired() error {
 	}
 	rows.Close()
 	for _, id := range expiredShares {
-		if err := a.destroyShareItems(id); err != nil {
+		if err := a.deleteShareAndContent(id); err != nil {
 			log.Printf("expire share %s: %v", id, err)
 		}
 	}

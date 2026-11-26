@@ -400,7 +400,10 @@ func (a *App) handleDeleteUser(w http.ResponseWriter, r *http.Request) {
 		}
 		rows.Close()
 		for _, sid := range shareIDs {
-			_ = a.destroyShareItems(sid)
+			if err := a.deleteShareAndContent(sid); err != nil {
+				writeError(w, http.StatusInternalServerError, "无法删除用户分享")
+				return
+			}
 		}
 	}
 	if _, err := a.db.Exec(`DELETE FROM users WHERE id=?`, id); err != nil {

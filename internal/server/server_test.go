@@ -22,7 +22,7 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-func TestClaimLifecycleAndRefresh(t *testing.T) {
+func TestClaimLifecycleDeletesWholeShare(t *testing.T) {
 	app, server, client := newTestApp(t)
 	defer server.Close()
 	defer app.Close()
@@ -96,19 +96,19 @@ func TestClaimLifecycleAndRefresh(t *testing.T) {
 		t.Fatal(err)
 	}
 	expired := getRaw(t, client, server.URL, "/api/public/claims/"+claimOne.ClaimID, claimOne.Token)
-	if expired.StatusCode != http.StatusGone {
+	if expired.StatusCode != http.StatusNotFound {
 		body, _ := io.ReadAll(expired.Body)
 		t.Fatalf("destroyed claim status = %d: %s", expired.StatusCode, body)
 	}
 	expired.Body.Close()
 
-	claimTwo := claimShare(t, client, server.URL, createBody.Share.PublicID, secret)
-	if claimTwo.ClaimID == claimOne.ClaimID {
-		t.Fatal("new session reused the prior claim")
-	}
-	secondContent := getClaim(t, client, server.URL, claimTwo.ClaimID, claimTwo.Token)
-	if secondContent.Items[0].Blocks[0].Text != "second" {
-		t.Fatalf("new session got wrong item: %+v", secondContent)
+	assertShareDeleted(t, app, createBody.Share.ID)
+	againClaim := doJSON(t, client, http.MethodPost,
+		server.URL+"/api/public/shares/"+createBody.Share.PublicID+"/claim",
+		map[string]string{"secret": secret}, "")
+	againClaim.Body.Close()
+	if againClaim.StatusCode != http.StatusNotFound {
+		t.Fatalf("claim after session destruction status = %d", againClaim.StatusCode)
 	}
 }
 
@@ -158,6 +158,61 @@ func TestListSharesAfterCreateDoesNotDeadlock(t *testing.T) {
 	if len(body.Shares) != 1 || body.Shares[0].PublicLink == "" {
 		t.Fatalf("unexpected shares response: %+v", body.Shares)
 	}
+}
+
+func TestExpiredShareIsDeletedWithoutAuditRecord(t *testing.T) {
+	app, server, client := newTestApp(t)
+	defer server.Close()
+	defer app.Close()
+
+	response := doJSON(t, client, http.MethodPost, server.URL+"/api/setup", map[string]any{
+		"username": "admin", "password": "expiry-password",
+	}, "")
+	response.Body.Close()
+	created := doJSON(t, client, http.MethodPost, server.URL+"/api/shares", map[string]any{
+		"title": "expires", "sessionTimeoutSeconds": 300, "linkValiditySeconds": 3600,
+		"ipAllow": []string{}, "ipDeny": []string{}, "defaultAlign": "center",
+		"items": []map[string]any{{"blocks": []map[string]string{{"type": "markdown", "text": "secret", "align": "center"}}}},
+	}, "")
+	var body struct {
+		Share Share `json:"share"`
+	}
+	decodeResponse(t, created, &body)
+	if _, err := app.db.Exec(`UPDATE shares SET expires_at=? WHERE id=?`, nowUnix()-1, body.Share.ID); err != nil {
+		t.Fatal(err)
+	}
+	if err := app.cleanupExpired(); err != nil {
+		t.Fatal(err)
+	}
+	assertShareDeleted(t, app, body.Share.ID)
+}
+
+func TestManualShareDeletionRemovesDatabaseRecord(t *testing.T) {
+	app, server, client := newTestApp(t)
+	defer server.Close()
+	defer app.Close()
+
+	response := doJSON(t, client, http.MethodPost, server.URL+"/api/setup", map[string]any{
+		"username": "admin", "password": "delete-password",
+	}, "")
+	response.Body.Close()
+	created := doJSON(t, client, http.MethodPost, server.URL+"/api/shares", map[string]any{
+		"title": "delete me", "sessionTimeoutSeconds": 300, "linkValiditySeconds": 3600,
+		"ipAllow": []string{}, "ipDeny": []string{}, "defaultAlign": "center",
+		"items": []map[string]any{{"blocks": []map[string]string{{"type": "markdown", "text": "secret", "align": "center"}}}},
+	}, "")
+	var body struct {
+		Share Share `json:"share"`
+	}
+	decodeResponse(t, created, &body)
+	deleted := doJSON(t, client, http.MethodDelete, server.URL+"/api/shares/"+body.Share.ID, map[string]any{}, "")
+	if deleted.StatusCode != http.StatusOK {
+		payload, _ := io.ReadAll(deleted.Body)
+		deleted.Body.Close()
+		t.Fatalf("delete share status = %d: %s", deleted.StatusCode, payload)
+	}
+	deleted.Body.Close()
+	assertShareDeleted(t, app, body.Share.ID)
 }
 
 func TestSettingsAndCIDRValidation(t *testing.T) {
@@ -213,6 +268,11 @@ func TestAssetUploadAndClaimDownload(t *testing.T) {
 	if uploadBody.Asset.Size != int64(len(payload)) {
 		t.Fatalf("asset size = %d", uploadBody.Asset.Size)
 	}
+	var storageKey string
+	if err := app.db.QueryRow(`SELECT storage_key FROM assets WHERE id=?`, uploadBody.Asset.ID).Scan(&storageKey); err != nil {
+		t.Fatal(err)
+	}
+	assetPath := filepath.Join(app.cfg.DataDir, "blobs", storageKey)
 
 	created := doJSON(t, client, http.MethodPost, server.URL+"/api/shares", map[string]any{
 		"title": "attachment drop", "sessionTimeoutSeconds": 300, "linkValiditySeconds": 3600,
@@ -253,6 +313,17 @@ func TestAssetUploadAndClaimDownload(t *testing.T) {
 		t.Fatalf("destroyed asset status = %d", after.StatusCode)
 	}
 	after.Body.Close()
+	if _, err := os.Stat(assetPath); !os.IsNotExist(err) {
+		t.Fatalf("asset file still exists after share deletion: %v", err)
+	}
+	var assets int
+	if err := app.db.QueryRow(`SELECT COUNT(*) FROM assets WHERE id=?`, uploadBody.Asset.ID).Scan(&assets); err != nil {
+		t.Fatal(err)
+	}
+	if assets != 0 {
+		t.Fatalf("asset record count = %d", assets)
+	}
+	assertShareDeleted(t, app, createBody.Share.ID)
 }
 
 func TestTurnstileClaimRequiresServerVerification(t *testing.T) {
@@ -414,6 +485,27 @@ func decodeResponse(t *testing.T, response *http.Response, dst any) {
 	defer response.Body.Close()
 	if err := json.NewDecoder(response.Body).Decode(dst); err != nil {
 		t.Fatal(err)
+	}
+}
+
+func assertShareDeleted(t *testing.T, app *App, shareID string) {
+	t.Helper()
+	checks := []struct {
+		name  string
+		query string
+	}{
+		{"share", `SELECT COUNT(*) FROM shares WHERE id=?`},
+		{"items", `SELECT COUNT(*) FROM items WHERE share_id=?`},
+		{"claims", `SELECT COUNT(*) FROM claims WHERE share_id=?`},
+	}
+	for _, check := range checks {
+		var count int
+		if err := app.db.QueryRow(check.query, shareID).Scan(&count); err != nil {
+			t.Fatalf("count %s: %v", check.name, err)
+		}
+		if count != 0 {
+			t.Fatalf("%s records remain after deletion: %d", check.name, count)
+		}
 	}
 }
 
