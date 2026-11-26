@@ -87,6 +87,21 @@ export interface Share {
   consumedCount: number;
 }
 
+export interface Subscription {
+  id: string;
+  ownerId: string;
+  ownerName?: string;
+  publicId: string;
+  title: string;
+  contentType: "text/plain" | "text/yaml" | "application/octet-stream";
+  base64Encoded: boolean;
+  expiresAt: number;
+  maxRequests: number;
+  successfulRequests: number;
+  createdAt: number;
+  publicLink?: string;
+}
+
 export interface Asset {
   id: string;
   name: string;

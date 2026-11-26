@@ -36,6 +36,10 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("POST /api/shares", a.handleCreateShare)
 	mux.HandleFunc("GET /api/shares/{id}", a.handleGetShare)
 	mux.HandleFunc("DELETE /api/shares/{id}", a.handleDeleteShare)
+	mux.HandleFunc("GET /api/subscriptions", a.handleListSubscriptions)
+	mux.HandleFunc("POST /api/subscriptions", a.handleCreateSubscription)
+	mux.HandleFunc("PATCH /api/subscriptions/{id}", a.handleReactivateSubscription)
+	mux.HandleFunc("DELETE /api/subscriptions/{id}", a.handleDeleteSubscription)
 	mux.HandleFunc("POST /api/assets", a.handleUploadAsset)
 	mux.HandleFunc("GET /api/assets/{id}/preview", a.handleOwnerAssetPreview)
 
@@ -45,6 +49,7 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("POST /api/public/claims/{claimId}/start", a.handleStartClaim)
 	mux.HandleFunc("GET /api/public/claims/{claimId}/assets/{assetId}", a.handleClaimAsset)
 	mux.HandleFunc("GET /api/public/claims/{claimId}/ws", a.handleClaimWebSocket)
+	mux.HandleFunc("GET /sub/{publicId}/{token}", a.handleSubscriptionContent)
 	mux.HandleFunc("/api/", func(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusNotFound, "接口不存在")
 	})
@@ -105,17 +110,25 @@ func (a *App) requestLogger(next http.Handler) http.Handler {
 		start := time.Now()
 		sw := &statusWriter{ResponseWriter: w}
 		next.ServeHTTP(sw, r)
+		logPath := redactedLogPath(r.URL.Path)
 		if !strings.HasPrefix(r.URL.Path, "/api/public/claims/") || sw.status >= 400 {
-			log.Printf("%s %s %d %s", r.Method, r.URL.Path, sw.status, time.Since(start).Round(time.Millisecond))
+			log.Printf("%s %s %d %s", r.Method, logPath, sw.status, time.Since(start).Round(time.Millisecond))
 		}
 	})
+}
+
+func redactedLogPath(value string) string {
+	if strings.HasPrefix(value, "/sub/") {
+		return "/sub/[redacted]"
+	}
+	return value
 }
 
 func (a *App) recoverPanic(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		defer func() {
 			if recover() != nil {
-				log.Printf("panic serving %s %s", r.Method, path.Clean(r.URL.Path))
+				log.Printf("panic serving %s %s", r.Method, redactedLogPath(path.Clean(r.URL.Path)))
 				writeError(w, http.StatusInternalServerError, "服务器内部错误")
 			}
 		}()

@@ -3,6 +3,7 @@ package server
 import (
 	"bytes"
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -213,6 +214,156 @@ func TestManualShareDeletionRemovesDatabaseRecord(t *testing.T) {
 	}
 	deleted.Body.Close()
 	assertShareDeleted(t, app, body.Share.ID)
+}
+
+func TestSubscriptionLimitKeepsRecordAndCanReactivate(t *testing.T) {
+	app, server, client := newTestApp(t)
+	defer server.Close()
+	defer app.Close()
+
+	response := doJSON(t, client, http.MethodPost, server.URL+"/api/setup", map[string]any{
+		"username": "admin", "password": "subscription-password",
+	}, "")
+	response.Body.Close()
+	content := "mixed-port: 7890\nproxies: []\n"
+	created := doJSON(t, client, http.MethodPost, server.URL+"/api/subscriptions", map[string]any{
+		"title": "clash config", "content": content, "contentType": "text/yaml",
+		"base64Encoded": false, "linkValiditySeconds": 3600, "maxRequests": 1,
+	}, "")
+	if created.StatusCode != http.StatusCreated {
+		body, _ := io.ReadAll(created.Body)
+		created.Body.Close()
+		t.Fatalf("create subscription status = %d: %s", created.StatusCode, body)
+	}
+	var body struct {
+		Subscription Subscription `json:"subscription"`
+	}
+	decodeResponse(t, created, &body)
+
+	first, err := client.Get(body.Subscription.PublicLink)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got, _ := io.ReadAll(first.Body)
+	first.Body.Close()
+	if first.StatusCode != http.StatusOK || string(got) != content {
+		t.Fatalf("subscription response status=%d body=%q", first.StatusCode, got)
+	}
+	second, err := client.Get(body.Subscription.PublicLink)
+	if err != nil {
+		t.Fatal(err)
+	}
+	second.Body.Close()
+	if second.StatusCode != http.StatusNotFound {
+		t.Fatalf("exhausted subscription status = %d", second.StatusCode)
+	}
+	var successful int64
+	if err := app.db.QueryRow(`SELECT successful_requests FROM subscriptions WHERE id=?`, body.Subscription.ID).Scan(&successful); err != nil {
+		t.Fatalf("exhausted subscription record missing: %v", err)
+	}
+	if successful != 1 {
+		t.Fatalf("successful requests = %d", successful)
+	}
+	if err := app.cleanupExpired(); err != nil {
+		t.Fatal(err)
+	}
+
+	reactivated := doJSON(t, client, http.MethodPatch, server.URL+"/api/subscriptions/"+body.Subscription.ID, map[string]any{
+		"linkValiditySeconds": 7200, "maxRequests": 2,
+	}, "")
+	if reactivated.StatusCode != http.StatusOK {
+		payload, _ := io.ReadAll(reactivated.Body)
+		reactivated.Body.Close()
+		t.Fatalf("reactivate status = %d: %s", reactivated.StatusCode, payload)
+	}
+	reactivated.Body.Close()
+	again, err := client.Get(body.Subscription.PublicLink)
+	if err != nil {
+		t.Fatal(err)
+	}
+	againBody, _ := io.ReadAll(again.Body)
+	again.Body.Close()
+	if again.StatusCode != http.StatusOK || string(againBody) != content {
+		t.Fatalf("reactivated subscription status=%d body=%q", again.StatusCode, againBody)
+	}
+
+	deleted := doJSON(t, client, http.MethodDelete, server.URL+"/api/subscriptions/"+body.Subscription.ID, map[string]any{}, "")
+	if deleted.StatusCode != http.StatusOK {
+		payload, _ := io.ReadAll(deleted.Body)
+		deleted.Body.Close()
+		t.Fatalf("delete subscription status = %d: %s", deleted.StatusCode, payload)
+	}
+	deleted.Body.Close()
+	var count int
+	if err := app.db.QueryRow(`SELECT COUNT(*) FROM subscriptions WHERE id=?`, body.Subscription.ID).Scan(&count); err != nil {
+		t.Fatal(err)
+	}
+	if count != 0 {
+		t.Fatalf("subscription record remains after manual deletion: %d", count)
+	}
+}
+
+func TestSubscriptionBase64UnlimitedAndExpiryRetainsRecord(t *testing.T) {
+	app, server, client := newTestApp(t)
+	defer server.Close()
+	defer app.Close()
+
+	response := doJSON(t, client, http.MethodPost, server.URL+"/api/setup", map[string]any{
+		"username": "admin", "password": "subscription-base64-password",
+	}, "")
+	response.Body.Close()
+	content := "vmess://example\n"
+	created := doJSON(t, client, http.MethodPost, server.URL+"/api/subscriptions", map[string]any{
+		"title": "base64 config", "content": content, "contentType": "text/plain",
+		"base64Encoded": true, "linkValiditySeconds": 3600, "maxRequests": 0,
+	}, "")
+	var body struct {
+		Subscription Subscription `json:"subscription"`
+	}
+	decodeResponse(t, created, &body)
+	for i := 0; i < 2; i++ {
+		res, err := client.Get(body.Subscription.PublicLink)
+		if err != nil {
+			t.Fatal(err)
+		}
+		encoded, _ := io.ReadAll(res.Body)
+		res.Body.Close()
+		if res.StatusCode != http.StatusOK {
+			t.Fatalf("base64 subscription status = %d", res.StatusCode)
+		}
+		decoded, err := base64.StdEncoding.DecodeString(string(encoded))
+		if err != nil || string(decoded) != content {
+			t.Fatalf("base64 subscription mismatch: %q, %v", decoded, err)
+		}
+	}
+	var successful int64
+	if err := app.db.QueryRow(`SELECT successful_requests FROM subscriptions WHERE id=?`, body.Subscription.ID).Scan(&successful); err != nil {
+		t.Fatal(err)
+	}
+	if successful != 2 {
+		t.Fatalf("successful requests = %d", successful)
+	}
+	if _, err := app.db.Exec(`UPDATE subscriptions SET expires_at=? WHERE id=?`, nowUnix()-1, body.Subscription.ID); err != nil {
+		t.Fatal(err)
+	}
+	expired, err := client.Get(body.Subscription.PublicLink)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expired.Body.Close()
+	if expired.StatusCode != http.StatusNotFound {
+		t.Fatalf("expired subscription status = %d", expired.StatusCode)
+	}
+	if err := app.cleanupExpired(); err != nil {
+		t.Fatal(err)
+	}
+	var count int
+	if err := app.db.QueryRow(`SELECT COUNT(*) FROM subscriptions WHERE id=?`, body.Subscription.ID).Scan(&count); err != nil {
+		t.Fatal(err)
+	}
+	if count != 1 {
+		t.Fatalf("expired subscription record was removed: %d", count)
+	}
 }
 
 func TestSettingsAndCIDRValidation(t *testing.T) {

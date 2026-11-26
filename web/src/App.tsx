@@ -4,6 +4,7 @@ import { api } from "./api";
 import { AuthPage } from "./pages/AuthPage";
 import { DashboardPage } from "./pages/DashboardPage";
 import { CreateSharePage } from "./pages/CreateSharePage";
+import { CreateSubscriptionPage } from "./pages/CreateSubscriptionPage";
 import { AdminUsersPage } from "./pages/AdminUsersPage";
 import { AdminSettingsPage } from "./pages/AdminSettingsPage";
 import { PublicSharePage } from "./pages/PublicSharePage";
@@ -65,6 +66,7 @@ function ProtectedApp() {
     <Routes>
       <Route path="/" element={<DashboardPage user={user} onLogout={logout} />} />
       <Route path="/shares/new" element={<CreateSharePage user={user} onLogout={logout} />} />
+      <Route path="/subscriptions/new" element={<CreateSubscriptionPage user={user} onLogout={logout} />} />
       <Route path="/admin/users" element={user.role === "admin" ? <AdminUsersPage user={user} onLogout={logout} /> : <Navigate to="/" />} />
       <Route path="/admin/settings" element={user.role === "admin" ? <AdminSettingsPage user={user} onLogout={logout} /> : <Navigate to="/" />} />
       <Route path="*" element={<Navigate to="/" replace />} />

@@ -1,4 +1,4 @@
-import type { Asset, Block, ClaimContent, ItemInput, Settings, Share, TurnstileConfig, User, UserConfig } from "./types";
+import type { Asset, Block, ClaimContent, ItemInput, Settings, Share, Subscription, TurnstileConfig, User, UserConfig } from "./types";
 
 export class ApiError extends Error {
   status: number;
@@ -55,6 +55,19 @@ export const api = {
     items: ItemInput[];
   }) => request<{ share: Share }>("/api/shares", { method: "POST", body: JSON.stringify(payload) }),
   deleteShare: (id: string) => request<{ ok: boolean }>(`/api/shares/${id}`, { method: "DELETE" }),
+
+  subscriptions: () => request<{ subscriptions: Subscription[] }>("/api/subscriptions"),
+  createSubscription: (payload: {
+    title: string;
+    content: string;
+    contentType: Subscription["contentType"];
+    base64Encoded: boolean;
+    linkValiditySeconds: number;
+    maxRequests: number;
+  }) => request<{ subscription: Subscription }>("/api/subscriptions", { method: "POST", body: JSON.stringify(payload) }),
+  reactivateSubscription: (id: string, payload: { linkValiditySeconds: number; maxRequests: number }) =>
+    request<{ ok: boolean }>(`/api/subscriptions/${id}`, { method: "PATCH", body: JSON.stringify(payload) }),
+  deleteSubscription: (id: string) => request<{ ok: boolean }>(`/api/subscriptions/${id}`, { method: "DELETE" }),
 
   uploadAsset: async (file: File): Promise<Asset> => {
     const data = new FormData();

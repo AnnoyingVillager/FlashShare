@@ -93,7 +93,7 @@ func validateSettings(s *Settings) error {
 		return errText("总存储配额必须至少为 10 MiB 且不小于单文件上限")
 	}
 	if s.MaxActiveSharesPerUser < 1 || s.MaxActiveSharesPerUser > 100 {
-		return errText("每用户活跃分享数必须在 1 到 100 之间")
+		return errText("每用户活跃分享或订阅数必须在 1 到 100 之间")
 	}
 	if s.MaxItemsPerShare < 1 || s.MaxItemsPerShare > 1000 {
 		return errText("每分享内容数必须在 1 到 1000 之间")

@@ -88,9 +88,12 @@ func (a *App) handleCreateShare(w http.ResponseWriter, r *http.Request) {
 	expires := created + int64(req.LinkValidity)
 	a.db.Exec(`BEGIN IMMEDIATE`)
 	var active int
-	err = a.db.QueryRow(`SELECT COUNT(*) FROM shares WHERE owner_id=? AND revoked_at=0 AND expires_at>?`, auth.User.ID, created).Scan(&active)
+	err = a.db.QueryRow(`SELECT
+		(SELECT COUNT(*) FROM shares WHERE owner_id=? AND revoked_at=0 AND expires_at>?) +
+		(SELECT COUNT(*) FROM subscriptions WHERE owner_id=? AND (expires_at=0 OR expires_at>?) AND (max_requests=0 OR successful_requests<max_requests))`,
+		auth.User.ID, created, auth.User.ID, created).Scan(&active)
 	if err == nil && active >= settings.MaxActiveSharesPerUser {
-		err = errText(fmt.Sprintf("最多同时开启 %d 条分享链接", settings.MaxActiveSharesPerUser))
+		err = errText(fmt.Sprintf("最多同时开启 %d 条分享或订阅链接", settings.MaxActiveSharesPerUser))
 	}
 	if err == nil {
 		_, err = a.db.Exec(`INSERT INTO shares(id,owner_id,public_id,secret_cipher,secret_nonce,title,session_timeout,expires_at,ip_allow,ip_deny,default_align,created_at,revoked_at)

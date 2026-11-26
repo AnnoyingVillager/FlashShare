@@ -18,6 +18,7 @@ export function Layout({ user, onLogout, children, wide = false }: {
         <nav className="main-nav" aria-label="主导航">
           <NavLink to="/" end>分享</NavLink>
           <NavLink to="/shares/new">新建</NavLink>
+          <NavLink to="/subscriptions/new">订阅</NavLink>
           {user.role === "admin" && <NavLink to="/admin/users">用户</NavLink>}
           {user.role === "admin" && <NavLink to="/admin/settings">设置</NavLink>}
         </nav>

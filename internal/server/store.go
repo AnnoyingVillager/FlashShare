@@ -140,6 +140,25 @@ func (a *App) migrate() error {
 			destroyed_at INTEGER NOT NULL DEFAULT 0
 		)`,
 		`CREATE INDEX IF NOT EXISTS idx_claims_cleanup ON claims(state, expires_at, lease_expires_at)`,
+		`CREATE TABLE IF NOT EXISTS subscriptions (
+			id TEXT PRIMARY KEY,
+			owner_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+			public_id TEXT NOT NULL UNIQUE,
+			token_hash TEXT NOT NULL,
+			token_cipher BLOB NOT NULL,
+			token_nonce BLOB NOT NULL,
+			title TEXT NOT NULL,
+			content_type TEXT NOT NULL CHECK(content_type IN ('text/plain','text/yaml','application/octet-stream')),
+			base64_encoded INTEGER NOT NULL DEFAULT 0,
+			content_cipher BLOB NOT NULL,
+			content_nonce BLOB NOT NULL,
+			expires_at INTEGER NOT NULL DEFAULT 0,
+			max_requests INTEGER NOT NULL DEFAULT 0,
+			successful_requests INTEGER NOT NULL DEFAULT 0,
+			created_at INTEGER NOT NULL
+		)`,
+		`CREATE INDEX IF NOT EXISTS idx_subscriptions_owner ON subscriptions(owner_id, created_at DESC)`,
+		`CREATE INDEX IF NOT EXISTS idx_subscriptions_expiry ON subscriptions(expires_at)`,
 	}
 	for _, stmt := range stmts {
 		if _, err := a.db.Exec(stmt); err != nil {
@@ -323,7 +342,6 @@ func (a *App) cleanupExpired() error {
 			log.Printf("expire share %s: %v", id, err)
 		}
 	}
-
 	_, err = a.db.Exec(`DELETE FROM auth_sessions WHERE expires_at <= ?`, now)
 	if err != nil {
 		return err

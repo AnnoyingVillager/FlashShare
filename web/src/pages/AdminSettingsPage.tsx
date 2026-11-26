@@ -59,7 +59,7 @@ export function AdminSettingsPage({ user, onLogout }: { user: User; onLogout: ()
           <div className="section-number">01</div><div className="section-content"><h2>容量与数量</h2><div className="form-grid two">
             <NumberField label="单文件上限（MiB）" value={settings.maxFileBytes / 1024 / 1024} onChange={(v) => patch("maxFileBytes", Math.round(v * 1024 * 1024))} min={1} max={1024} />
             <NumberField label="总存储配额（MiB）" value={settings.maxTotalStorageBytes / 1024 / 1024} onChange={(v) => patch("maxTotalStorageBytes", Math.round(v * 1024 * 1024))} min={10} />
-            <NumberField label="每用户活跃链接数" value={settings.maxActiveSharesPerUser} onChange={(v) => patch("maxActiveSharesPerUser", v)} min={1} max={100} />
+            <NumberField label="每用户活跃分享/订阅数" value={settings.maxActiveSharesPerUser} onChange={(v) => patch("maxActiveSharesPerUser", v)} min={1} max={100} />
             <NumberField label="每条链接内容份数" value={settings.maxItemsPerShare} onChange={(v) => patch("maxItemsPerShare", v)} min={1} max={1000} />
             <NumberField label="每份文本上限（KiB）" value={settings.maxTextBytes / 1024} onChange={(v) => patch("maxTextBytes", Math.round(v * 1024))} min={1} max={2048} />
             <NumberField label="表格最大列数" value={settings.maxColumns} onChange={(v) => patch("maxColumns", v)} min={1} max={100} />

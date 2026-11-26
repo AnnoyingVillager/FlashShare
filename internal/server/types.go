@@ -100,6 +100,30 @@ type CreateShareRequest struct {
 	Items          []ItemInput `json:"items"`
 }
 
+type Subscription struct {
+	ID                 string `json:"id"`
+	OwnerID            string `json:"ownerId"`
+	OwnerName          string `json:"ownerName,omitempty"`
+	PublicID           string `json:"publicId"`
+	Title              string `json:"title"`
+	ContentType        string `json:"contentType"`
+	Base64Encoded      bool   `json:"base64Encoded"`
+	ExpiresAt          int64  `json:"expiresAt"`
+	MaxRequests        int64  `json:"maxRequests"`
+	SuccessfulRequests int64  `json:"successfulRequests"`
+	CreatedAt          int64  `json:"createdAt"`
+	PublicLink         string `json:"publicLink,omitempty"`
+}
+
+type CreateSubscriptionRequest struct {
+	Title         string `json:"title"`
+	Content       string `json:"content"`
+	ContentType   string `json:"contentType"`
+	Base64Encoded bool   `json:"base64Encoded"`
+	LinkValidity  int64  `json:"linkValiditySeconds"`
+	MaxRequests   int64  `json:"maxRequests"`
+}
+
 type Asset struct {
 	ID           string `json:"id"`
 	OriginalName string `json:"name"`
